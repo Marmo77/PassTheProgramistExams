@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import SeeData from "./components/SeeData";
 import supabase from "./utils/supabase";
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
 
 interface Exam {
   id: string;
@@ -14,11 +16,15 @@ function App() {
   const [examInfo, setExamInfo] = useState<Exam[]>([]);
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <div className="flex ">
-        <SeeData examInfo={examInfo} setExamInfo={setExamInfo} />
-      </div>
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route
+          index
+          path="/"
+          element={<SeeData examInfo={examInfo} setExamInfo={setExamInfo} />}
+        />
+      </Route>
+    </Routes>
   );
 }
 

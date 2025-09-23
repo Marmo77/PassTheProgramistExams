@@ -27,7 +27,7 @@ const SeeData = ({
   };
 
   return (
-    <section className="flex flex-col justify-center items-center">
+    <section className="flex flex-col min-h-screen justify-center items-center">
       <div>
         <h1>SeeData</h1>
         <Button
