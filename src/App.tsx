@@ -4,24 +4,25 @@ import supabase from "./utils/supabase";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
-
-interface Exam {
-  id: string;
-  title: string;
-  session: string;
-  year: number;
-}
+import Question from "./components/Question";
+import type { Exam, QuestionTest } from "./types/testtypes";
+import { MoveB } from "./components/MoveB";
 
 function App() {
   const [examInfo, setExamInfo] = useState<Exam[]>([]);
+  const [question, setQuestion] = useState<QuestionTest[]>([]);
 
   return (
     <Routes>
       <Route element={<Layout />}>
+        <Route index path="/" element={<MoveB />} />
         <Route
-          index
-          path="/"
+          path="/exams"
           element={<SeeData examInfo={examInfo} setExamInfo={setExamInfo} />}
+        />
+        <Route
+          path="/questions"
+          element={<Question question={question} setQuestion={setQuestion} />}
         />
       </Route>
     </Routes>

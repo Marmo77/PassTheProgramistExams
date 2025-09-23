@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../utils/supabase";
 import { Button } from "./ui/button";
-interface Exam {
-  id: string;
-  title: string;
-  session: string;
-  year: number;
-}
-
+import type { Exam } from "../types/testtypes";
 const SeeData = ({
   examInfo,
   setExamInfo,
@@ -16,25 +10,30 @@ const SeeData = ({
   setExamInfo: React.Dispatch<React.SetStateAction<Exam[]>>;
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-
+  const [Loaded, setLoaded] = useState(false);
   const startLoading = async () => {
+    if (Loaded) return;
     setIsLoading(true);
-    const { data: exams } = await supabase
+    const { data: exams, error } = await supabase
       .from("exam_info")
       .select("id, title, session, year");
     setExamInfo(exams as Exam[]);
+    setLoaded(true);
     setIsLoading(false);
+    if (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   };
 
   return (
-    <section className="flex flex-col min-h-screen justify-center items-center">
+    <section className="flex mt-6 flex-col gap-6 justify-center items-center">
       <div>
-        <h1>SeeData</h1>
         <Button
           className="cursor-pointer active:scale-95 duration-300 ease-in-out hover:scale-105"
           onClick={startLoading}
         >
-          Click me
+          Load Exam Names
         </Button>
       </div>
       {isLoading ? (
@@ -42,12 +41,15 @@ const SeeData = ({
           <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
         </div>
       ) : (
-        <ul>
+        <ul className="flex flex-col gap-2">
+          {/* examInfo.sort((a, b) => b.year - a.year) */}
           {examInfo.map((exam) => (
             <li key={exam.id}>
-              {exam.title}{" "}
-              {exam.session.charAt(0).toUpperCase() + exam.session.slice(1)}{" "}
-              {exam.year}
+              <span className="font-bold">{exam.title}</span>{" "}
+              <span className="text-blue-500">
+                {exam.session.charAt(0).toUpperCase() + exam.session.slice(1)}
+              </span>{" "}
+              <span className="text-yellow-500">{exam.year}</span>
             </li>
           ))}
         </ul>
