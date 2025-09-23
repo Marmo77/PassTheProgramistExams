@@ -1,11 +1,23 @@
 import { Button } from "@/components/ui/button";
+import SeeData from "./components/SeeData";
+import supabase from "./utils/supabase";
+import { useState, useEffect } from "react";
+
+interface Exam {
+  id: string;
+  title: string;
+  session: string;
+  year: number;
+}
 
 function App() {
+  const [examInfo, setExamInfo] = useState<Exam[]>([]);
+
   return (
     <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button className="cursor-pointer active:scale-95 duration-300 ease-in-out hover:scale-105">
-        Click me
-      </Button>
+      <div className="flex ">
+        <SeeData examInfo={examInfo} setExamInfo={setExamInfo} />
+      </div>
     </div>
   );
 }
