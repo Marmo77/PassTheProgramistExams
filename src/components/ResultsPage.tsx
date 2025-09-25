@@ -41,7 +41,13 @@ const ResultsPage = () => {
     );
   }
 
-  return <ResultsCard results={data.results} questions={data.questions} />;
+  return (
+    <ResultsCard
+      results={data.results}
+      questions={data.questions}
+      summary={data.summary ?? { total: 0, correct: 0, incorrect: 0 }}
+    />
+  );
 };
 
 export default ResultsPage;
