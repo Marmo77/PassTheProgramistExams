@@ -8,7 +8,7 @@ import Layout from "./components/Layout/Layout";
 import type { Exam, QuestionTest } from "./types/testtypes";
 import { MoveB } from "./components/MoveB";
 import Question from "./components/Question";
-import ResultsCard from "./components/Question/ResultsCard";
+import ResultsPage from "./components/ResultsPage";
 
 function App() {
   const [examInfo, setExamInfo] = useState<Exam[]>([]);
@@ -23,6 +23,7 @@ function App() {
           element={<SeeData examInfo={examInfo} setExamInfo={setExamInfo} />}
         />
         <Route path="/questions" element={<Question />} />
+        <Route path="/results" element={<ResultsPage />} />
       </Route>
     </Routes>
   );
