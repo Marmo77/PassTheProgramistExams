@@ -12,7 +12,7 @@ export default function Navbar() {
             <h1 className="text-xl font-semibold">Pass the Exam</h1>
           </Link>
           <Badge variant="secondary" className="hidden sm:inline-flex">
-            Beta
+            v1.0
           </Badge>
         </div>
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import supabase from "@/utils/supabase";
 import type { QuestionTest } from "../types/testtypes";
+import QuestionCard from "./Question/QuestionCard";
 const Question = ({
   question,
   setQuestion,
@@ -23,8 +24,9 @@ const Question = ({
     const { data: question, error } = await supabase
       .from("questions")
       .select(
-        "question_number, question_text, subject, answer_a, answer_b, answer_c, answer_d, correct_answer"
-      );
+        "id, question_number, question_text, subject, answer_a, answer_b, answer_c, answer_d, correct_answer"
+      )
+      .limit(1);
     setQuestion(question as QuestionTest[]);
     setLoaded(true);
     setIsLoading(false);
@@ -32,18 +34,6 @@ const Question = ({
       console.log(error);
       setIsLoading(false);
     }
-  };
-  const getCorrectAnswer = (answer: string) => {
-    const abcdToNumber = {
-      A: 1,
-      B: 2,
-      C: 3,
-      D: 4,
-    };
-    if (!abcdToNumber[answer as keyof typeof abcdToNumber]) {
-      return 0;
-    }
-    return abcdToNumber[answer as keyof typeof abcdToNumber];
   };
   return (
     <div className="flex items-center flex-col gap-6 mt-6">
@@ -54,20 +44,42 @@ const Question = ({
         </div>
       ) : (
         <ul className="flex flex-col gap-2">
+          <QuestionCard />
           {question.map((item) => (
             <li key={item.question_number} className="text-center">
               <h1 className="font-bold">
                 {item.question_number}. {item.question_text}{" "}
                 <span className="text-blue-500">{item.subject}</span>
               </h1>
-              <h4 className="text-green-500">
-                {getCorrectAnswer(item.correct_answer)}
-              </h4>
               <ul>
-                <li>{item.answer_a}</li>
-                <li>{item.answer_b}</li>
-                <li>{item.answer_c}</li>
-                <li>{item.answer_d}</li>
+                {/* <li
+                  className={
+                    item.correct_answer === "A" ? "text-green-500" : ""
+                  }
+                >
+                  {item.answer_a}
+                </li>
+                <li
+                  className={
+                    item.correct_answer === "B" ? "text-green-500" : ""
+                  }
+                >
+                  {item.answer_b}
+                </li>
+                <li
+                  className={
+                    item.correct_answer === "C" ? "text-green-500" : ""
+                  }
+                >
+                  {item.answer_c}
+                </li>
+                <li
+                  className={
+                    item.correct_answer === "D" ? "text-green-500" : ""
+                  }
+                >
+                  {item.answer_d}
+                </li> */}
               </ul>
             </li>
           ))}

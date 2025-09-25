@@ -6,6 +6,7 @@ export interface Exam {
 }
 
 export interface QuestionTest {
+  id: string;
   question_number: number;
   question_text: string;
   subject: string;
