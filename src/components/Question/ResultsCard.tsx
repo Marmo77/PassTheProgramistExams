@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+import { Progress } from "../ui/progress";
 import type { QuestionType } from "@/types/types";
 import type { QuestionEvaluation } from "@/hooks/QuestionResults";
-import { Badge } from "../ui/badge";
 
 const ResultsCard = ({
   results,
@@ -14,32 +15,68 @@ const ResultsCard = ({
   questions: QuestionType[];
   summary: { total: number; correct: number; incorrect: number };
 }) => {
-  //   const resultPercent =
-  //     results.filter((r) => r.isCorrect).length / results.length;
-  const resultPercent = summary.correct / summary.total;
-  const resultPoints = resultPercent * 100;
+  const resultPercent = summary.total > 0 ? summary.correct / summary.total : 0;
+  const resultPoints = Math.round(resultPercent * 100);
   return (
     <section className="mx-auto max-w-7xl py-12">
-      <Card>
-        <CardHeader className="text-center">
-          <h2 className="text-2xl font-bold">Wyniki</h2>
-          <div className="flex justify-center items-center">
-            <h2 className="text-lg font-medium">Uzyskany Wynik:</h2>
+      <Card className="border shadow-sm">
+        <CardHeader className="text-center space-y-4">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-extrabold tracking-tight">Wyniki</h2>
+            <p className="text-sm text-muted-foreground">
+              Podsumowanie twojego testu {questions[0].subject}
+            </p>
+          </div>
+
+          {/* Score Badge */}
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-base font-medium">Uzyskany wynik:</span>
             <Badge
               variant={resultPercent >= 0.5 ? "default" : "destructive"}
-              className={`text-lg ${
+              className={`text-base px-3 py-1 ${
                 resultPercent >= 0.5 ? "bg-green-500" : "bg-red-500"
               }`}
             >
-              {resultPercent * 100}%
+              {resultPoints}%
             </Badge>
           </div>
-          <div>
-            <h2>
-              {summary.correct} / {summary.total}
-            </h2>
+
+          {/* Progress */}
+          <div className="w-full max-w-md mx-auto">
+            <Progress
+              value={resultPoints}
+              className={`h-2 bg-gray-200 ${
+                resultPercent >= 0.5
+                  ? "[&>div]:bg-green-500"
+                  : "[&>div]:bg-red-500"
+              }`}
+            />
+            <div className="mt-2 text-xs text-muted-foreground">
+              {summary.correct} z {summary.total} poprawnych
+            </div>
+          </div>
+
+          {/* Stat Chips */}
+          <div className="grid grid-cols-3 gap-3 max-w-md mx-auto">
+            <div className="rounded-md border p-3 text-center">
+              <div className="text-xs text-muted-foreground">Wszystkie</div>
+              <div className="text-lg font-semibold">{summary.total}</div>
+            </div>
+            <div className="rounded-md border p-3 text-center">
+              <div className="text-xs text-muted-foreground">Poprawne</div>
+              <div className="text-lg font-semibold text-green-600">
+                {summary.correct}
+              </div>
+            </div>
+            <div className="rounded-md border p-3 text-center">
+              <div className="text-xs text-muted-foreground">Błędne</div>
+              <div className="text-lg font-semibold text-red-600">
+                {summary.incorrect}
+              </div>
+            </div>
           </div>
         </CardHeader>
+
         <CardContent className="space-y-6">
           {results.map((result, idx) => {
             const q = questions[idx];
@@ -52,37 +89,70 @@ const ResultsCard = ({
               { key: "D", text: q.answer_d },
             ];
 
+            const questionStatus =
+              result.zaznaczono === null
+                ? "not-answered"
+                : result.isCorrect
+                ? "correct"
+                : "wrong";
+
+            const statusBadge =
+              questionStatus === "correct" ? (
+                <Badge className="bg-green-500">Poprawnie</Badge>
+              ) : questionStatus === "wrong" ? (
+                <Badge variant="destructive" className="bg-red-500">
+                  Błędna odpowiedź
+                </Badge>
+              ) : (
+                <Badge
+                  variant="destructive"
+                  className="bg-yellow-500 hover:bg-yellow-600"
+                >
+                  Brak odpowiedzi
+                </Badge>
+              );
+
+            const borderAccentClass =
+              questionStatus === "correct"
+                ? "border-l-4 border-l-green-500"
+                : questionStatus === "wrong"
+                ? "border-l-4 border-l-red-500"
+                : "border-l-4 border-l-yellow-500";
+
             return (
-              <div key={idx} className="px-3 py-2 border rounded-md">
-                <div className="mb-3">
-                  <h3 className="text-lg font-medium">
+              <div
+                key={idx}
+                className={`rounded-md border ${borderAccentClass} shadow-xs`}
+              >
+                <div className="flex items-start justify-between p-3 pb-0">
+                  <h3 className="text-lg font-semibold">
                     {idx + 1}. {q.question_text}
                   </h3>
-                  {result.zaznaczono === null && (
-                    <Badge variant={"destructive"}>
-                      Nie zaznaczono odpowiedzi
-                    </Badge>
-                  )}
+                  {statusBadge}
                 </div>
 
-                <div className="flex flex-col gap-2 px-2">
+                {/* Answers */}
+                <div className="flex flex-col gap-2 px-3 py-3">
                   {options.map((opt) => {
                     const isCorrectOption =
                       opt.key === result.poprawna_odpowiedz;
                     const isUserOption = opt.key === result.twoja_odpowiedz;
                     const wrongUserPick = isUserOption && !result.isCorrect;
+
+                    // Styling
                     const extra = isCorrectOption
-                      ? "border-green-500 bg-green-50 text-green-600"
+                      ? "border-green-500 bg-green-50 text-green-700"
                       : wrongUserPick
                       ? "border-red-500 bg-red-50 text-red-600"
-                      : "";
+                      : "border-muted";
 
                     return (
                       <Button
                         key={opt.key}
-                        variant={"outline"}
+                        variant={"questionButton"}
                         size="question"
                         className={`items-start justify-start ${extra}`}
+                        disabled
                       >
                         {opt.key}. {opt.text}
                       </Button>
