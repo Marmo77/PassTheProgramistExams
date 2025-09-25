@@ -8,6 +8,7 @@ import Layout from "./components/Layout/Layout";
 import type { Exam, QuestionTest } from "./types/testtypes";
 import { MoveB } from "./components/MoveB";
 import Question from "./components/Question";
+import ResultsCard from "./components/Question/ResultsCard";
 
 function App() {
   const [examInfo, setExamInfo] = useState<Exam[]>([]);
