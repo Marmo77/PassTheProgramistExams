@@ -6,11 +6,18 @@ import { Badge } from "../ui/badge";
 import type { QuestionType } from "@/types/types";
 
 // { question }: { question: Question[] }
-const QuestionCard = ({ question }: { question: QuestionType[] }) => {
+const QuestionCard = ({
+  question,
+  questionNumber,
+}: {
+  question: QuestionType[];
+  questionNumber: number;
+}) => {
   const openCreator = () => {
     window.open("https://github.com/Marmo77", "_blank");
   };
-  console.log(question);
+
+  const handleQuestionSelect = (answer: string) => {};
   return (
     <Card className="px-3">
       <CardHeader className="">
@@ -22,7 +29,9 @@ const QuestionCard = ({ question }: { question: QuestionType[] }) => {
           inf03
         </Badge>
         <div className="flex py-2">
-          <h1 className="text-lg font-medium">{question[0].question_text}</h1>
+          <h1 className="text-lg font-medium">
+            {questionNumber}. {question[0].question_text}
+          </h1>
         </div>
       </CardHeader>
       <CardContent>
@@ -30,21 +39,27 @@ const QuestionCard = ({ question }: { question: QuestionType[] }) => {
           <Button
             variant={"questionButton"}
             className="items-start justify-start"
+            id="A"
             size="question"
+            onClick={() => handleQuestionSelect("A")}
           >
             A. {question[0].answer_a}
           </Button>
           <Button
             variant={"questionButton"}
             className="items-start justify-start"
+            id="B"
             size="question"
+            onClick={() => handleQuestionSelect("B")}
           >
             B. {question[0].answer_b}
           </Button>
           <Button
             variant={"questionButton"}
             className="items-start justify-start"
+            id="C"
             size="question"
+            onClick={() => handleQuestionSelect("C")}
           >
             C. {question[0].answer_c}
           </Button>
@@ -52,6 +67,8 @@ const QuestionCard = ({ question }: { question: QuestionType[] }) => {
             variant={"questionButton"}
             size="question"
             className="items-start justify-start"
+            id="D"
+            onClick={() => handleQuestionSelect("D")}
           >
             D. {question[0].answer_d}
           </Button>
