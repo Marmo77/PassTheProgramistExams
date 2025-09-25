@@ -1,91 +1,41 @@
-import React, { useState, useEffect } from "react";
-
-import { Button } from "./ui/button";
-import supabase from "@/utils/supabase";
-import type { QuestionTest } from "../types/testtypes";
+import React, { useEffect, useState } from "react";
 import QuestionCard from "./Question/QuestionCard";
-const Question = ({
-  question,
-  setQuestion,
-}: {
-  question: QuestionTest[];
-  setQuestion: React.Dispatch<React.SetStateAction<QuestionTest[]>>;
-}) => {
-  useEffect(() => {
-    setQuestion(question);
-  }, [question]);
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
+import { getQuestions } from "@/hooks/getQuestions";
+import type { QuestionType } from "@/types/types";
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [Loaded, setLoaded] = useState(false);
+const Question = () => {
+  const [question, setQuestion] = useState<QuestionType[]>([
+    {
+      id: "1",
+      question_text: "Jaki jest najdłuższy wiatr w świecie?",
+      subject: "inf03",
+      correct_answer: "A",
+      answer_a: "halny",
+      answer_b: "mcony",
+      answer_c: "wali",
+      answer_d: "konin",
+    },
+  ]);
+  //   useEffect(() => {
+  //     getQuestions("inf03").then((res) => setQuestion(res as QuestionType[]));
+  //   }, []);
 
-  const LoadQuestions = async () => {
-    if (Loaded) return;
-    setIsLoading(true);
-    const { data: question, error } = await supabase
-      .from("questions")
-      .select(
-        "id, question_number, question_text, subject, answer_a, answer_b, answer_c, answer_d, correct_answer"
-      )
-      .limit(1);
-    setQuestion(question as QuestionTest[]);
-    setLoaded(true);
-    setIsLoading(false);
-    if (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
   return (
-    <div className="flex items-center flex-col gap-6 mt-6">
-      <Button onClick={LoadQuestions}>Load Questions</Button>
-      {isLoading ? (
-        <div className="flex items-center justify-center">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+    <section className="mx-auto max-w-7xl py-12">
+      <div className="grid grid-cols-6 gap-12">
+        <div className="col-span-4">
+          <QuestionCard question={question} />
         </div>
-      ) : (
-        <ul className="flex flex-col gap-2">
-          <QuestionCard />
-          {question.map((item) => (
-            <li key={item.question_number} className="text-center">
-              <h1 className="font-bold">
-                {item.question_number}. {item.question_text}{" "}
-                <span className="text-blue-500">{item.subject}</span>
-              </h1>
-              <ul>
-                {/* <li
-                  className={
-                    item.correct_answer === "A" ? "text-green-500" : ""
-                  }
-                >
-                  {item.answer_a}
-                </li>
-                <li
-                  className={
-                    item.correct_answer === "B" ? "text-green-500" : ""
-                  }
-                >
-                  {item.answer_b}
-                </li>
-                <li
-                  className={
-                    item.correct_answer === "C" ? "text-green-500" : ""
-                  }
-                >
-                  {item.answer_c}
-                </li>
-                <li
-                  className={
-                    item.correct_answer === "D" ? "text-green-500" : ""
-                  }
-                >
-                  {item.answer_d}
-                </li> */}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+        <div className="col-span-2">
+          <Card className="h-full">
+            <CardHeader></CardHeader>
+            <CardContent>00:00</CardContent>
+            <CardFooter>End</CardFooter>
+          </Card>
+        </div>
+      </div>
+    </section>
   );
 };
 

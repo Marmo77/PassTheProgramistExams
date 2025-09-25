@@ -1,13 +1,12 @@
-export type Question = {
+export type QuestionType = {
   id: string;
   question_text: string;
   subject: string; // inf03 | inf04
-  topics?: string[]; // algorytmy, bazy_danych, itp. - pod SEO
   correct_answer: string;
-  answer_1: string;
-  answer_2: string;
-  answer_3: string;
-  answer_4: string;
+  answer_a: string;
+  answer_b: string;
+  answer_c: string;
+  answer_d: string;
   explanation?: string;
 };
 export type ExamInfo = {

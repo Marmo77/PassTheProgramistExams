@@ -4,9 +4,10 @@ import supabase from "./utils/supabase";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
-import Question from "./components/Question";
+// import QuestionTest from "./components/QuestionTest";
 import type { Exam, QuestionTest } from "./types/testtypes";
 import { MoveB } from "./components/MoveB";
+import Question from "./components/Question";
 
 function App() {
   const [examInfo, setExamInfo] = useState<Exam[]>([]);
@@ -20,10 +21,7 @@ function App() {
           path="/exams"
           element={<SeeData examInfo={examInfo} setExamInfo={setExamInfo} />}
         />
-        <Route
-          path="/questions"
-          element={<Question question={question} setQuestion={setQuestion} />}
-        />
+        <Route path="/questions" element={<Question />} />
       </Route>
     </Routes>
   );
