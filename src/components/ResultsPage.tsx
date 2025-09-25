@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import ResultsCard from "./Question/ResultsCard";
 import type { QuestionType } from "@/types/types";
 import type { QuestionEvaluation } from "@/hooks/QuestionResults";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 type PersistedResults = {
   results: QuestionEvaluation[];
@@ -34,9 +36,14 @@ const ResultsPage = () => {
   if (!data || !data.results || !data.questions) {
     return (
       <section className="mx-auto max-w-7xl py-12">
-        <p className="text-muted-foreground">
-          Brak zapisanych wyników dla tego testu.
-        </p>
+        <div className="flex flex-col items-center gap-4">
+          <p className="text-muted-foreground">
+            Brak zapisanych wyników dla tego testu.
+          </p>
+          <Link to="/">
+            <Button variant={"link"}>Powrot do strony głównej</Button>
+          </Link>
+        </div>
       </section>
     );
   }

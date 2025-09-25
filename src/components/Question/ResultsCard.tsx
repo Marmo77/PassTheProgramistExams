@@ -5,6 +5,8 @@ import { Badge } from "../ui/badge";
 import { Progress } from "../ui/progress";
 import type { QuestionType } from "@/types/types";
 import type { QuestionEvaluation } from "@/hooks/QuestionResults";
+import { Link } from "react-router-dom";
+import { ArrowBigLeft, ArrowLeft } from "lucide-react";
 
 const ResultsCard = ({
   results,
@@ -20,8 +22,14 @@ const ResultsCard = ({
   return (
     <section className="mx-auto max-w-7xl py-12">
       <Card className="border shadow-sm">
-        <CardHeader className="text-center space-y-4">
+        <CardHeader className="text-center space-y-4 relative">
           <div className="space-y-2">
+            <Link to="/">
+              <Button variant={"default"} className="absolute left-4 top-1">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Powrot do strony glownej
+              </Button>
+            </Link>
             <h2 className="text-3xl font-extrabold tracking-tight">Wyniki</h2>
             <p className="text-sm text-muted-foreground">
               Podsumowanie twojego testu {questions[0].subject}
