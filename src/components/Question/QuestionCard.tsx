@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import type { QuestionType } from "@/types/types";
+import { Skeleton } from "../ui/skeleton";
 
 // { question }: { question: Question[] }
 const QuestionCard = ({
@@ -10,11 +11,13 @@ const QuestionCard = ({
   questionNumber,
   selectedAnswer,
   onSelect,
+  isLoading,
 }: {
   question: QuestionType[];
   questionNumber: number;
   selectedAnswer: string | null;
   onSelect: (answer: string) => void;
+  isLoading: boolean;
 }) => {
   const openCreator = () => {
     window.open("https://github.com/Marmo77", "_blank");
@@ -33,8 +36,17 @@ const QuestionCard = ({
           {question[0]?.subject ?? ""}
         </Badge>
         <div className="flex py-2">
-          <h1 className="text-lg font-medium">
-            {questionNumber}. {question[questionNumber - 1]?.question_text}
+          <h1
+            className={`text-lg ${
+              isLoading ? "flex items-center gap-4" : ""
+            } font-medium`}
+          >
+            {questionNumber}.
+            {isLoading ? (
+              <Skeleton className="w-2xl h-6" />
+            ) : (
+              question[questionNumber - 1]?.question_text
+            )}
           </h1>
         </div>
       </CardHeader>
@@ -49,7 +61,12 @@ const QuestionCard = ({
             size="question"
             onClick={() => handleQuestionSelect("A")}
           >
-            A. {question[questionNumber - 1]?.answer_a}
+            A.{" "}
+            {isLoading ? (
+              <Skeleton className="w-full h-6" />
+            ) : (
+              question[questionNumber - 1]?.answer_a
+            )}
           </Button>
           <Button
             variant={"questionButton"}
@@ -60,7 +77,12 @@ const QuestionCard = ({
             size="question"
             onClick={() => handleQuestionSelect("B")}
           >
-            B. {question[questionNumber - 1]?.answer_b}
+            B.{" "}
+            {isLoading ? (
+              <Skeleton className="w-full h-6" />
+            ) : (
+              question[questionNumber - 1]?.answer_b
+            )}
           </Button>
           <Button
             variant={"questionButton"}
@@ -71,7 +93,12 @@ const QuestionCard = ({
             size="question"
             onClick={() => handleQuestionSelect("C")}
           >
-            C. {question[questionNumber - 1]?.answer_c}
+            C.{" "}
+            {isLoading ? (
+              <Skeleton className="w-full h-6" />
+            ) : (
+              question[questionNumber - 1]?.answer_c
+            )}
           </Button>
           <Button
             variant={"questionButton"}
@@ -82,7 +109,12 @@ const QuestionCard = ({
             id="D"
             onClick={() => handleQuestionSelect("D")}
           >
-            D. {question[questionNumber - 1]?.answer_d}
+            D.{" "}
+            {isLoading ? (
+              <Skeleton className="w-full h-6" />
+            ) : (
+              question[questionNumber - 1]?.answer_d
+            )}
           </Button>
         </div>
       </CardContent>

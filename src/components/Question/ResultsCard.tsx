@@ -6,7 +6,8 @@ import { Progress } from "../ui/progress";
 import type { QuestionType } from "@/types/types";
 import type { QuestionEvaluation } from "@/hooks/QuestionResults";
 import { Link } from "react-router-dom";
-import { ArrowBigLeft, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { Skeleton } from "../ui/skeleton";
 
 const ResultsCard = ({
   results,
@@ -27,7 +28,7 @@ const ResultsCard = ({
             <Link to="/">
               <Button variant={"default"} className="absolute left-4 top-1">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Powrot do strony glownej
+                Powrót do strony glownej
               </Button>
             </Link>
             <h2 className="text-3xl font-extrabold tracking-tight">Wyniki</h2>
