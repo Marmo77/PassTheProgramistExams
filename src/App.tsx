@@ -7,7 +7,7 @@ import Layout from "./components/Layout/Layout";
 // import QuestionTest from "./components/QuestionTest";
 import type { Exam, QuestionTest } from "./types/testtypes";
 import { MoveB } from "./components/MoveB";
-import Question from "./components/Question";
+import Question from "./components/Question/Question";
 import ResultsPage from "./components/ResultsPage";
 
 function App() {
