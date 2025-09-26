@@ -14,20 +14,29 @@ const Question = () => {
   const [answers, setAnswers] = useState<(string | null)[]>([]);
   const [results, setResults] = useState<QuestionEvaluation[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   // const [isCorrect, setIsCorrect] = useState<boolean | null>(null); // będzie używane gdy dodamy inne tryby (jeśli true -> gramy dalej, false -> koniec gry)
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    getQuestions("inf03", 10).then((res) => {
-      // Pobieranie X pytań z Bazy Danych
-      const q = res as QuestionType[];
-      setQuestion(q);
-      setAnswers(Array(q.length).fill(null)); // tworzy tablice o długości q.length i wypełnia ją nullami (jeśli nie zaznaczono odpowiedzi to jest null)
-      setCurrentQuestion(1); //Wczytuje na start od pierwszego pytania
-      setSelectedAnswer(null); //Resetuje zaznaczoną odpowiedź
-      // setIsCorrect(null); //Resetuje poprawność odpowiedzi
-    });
+    getQuestions("inf03", 10)
+      .then((res) => {
+        // Pobieranie X pytań z Bazy Danych
+        const q = res as QuestionType[];
+        setQuestion(q);
+        setAnswers(Array(q.length).fill(null)); // tworzy tablice o długości q.length i wypełnia ją nullami (jeśli nie zaznaczono odpowiedzi to jest null)
+        setCurrentQuestion(1); //Wczytuje na start od pierwszego pytania
+        setSelectedAnswer(null); //Resetuje zaznaczoną odpowiedź
+        // setIsCorrect(null); //Resetuje poprawność odpowiedzi
+      })
+      .catch((e) => {
+        console.error("Failed to load questions", e);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+    // console.log("load", isLoading);
   }, []);
   const handleNextQuestion = () => {
     // Przechodzi do następnego pytania
@@ -87,6 +96,7 @@ const Question = () => {
             questionNumber={currentQuestion}
             selectedAnswer={selectedAnswer}
             onSelect={handleSelect} // replace setSelectedAnswer
+            isLoading={isLoading}
           />
         </div>
         <div className="col-span-2">

@@ -49,11 +49,18 @@ const ResultsPage = () => {
   }
 
   return (
-    <ResultsCard
-      results={data.results}
-      questions={data.questions}
-      summary={data.summary ?? { total: 0, correct: 0, incorrect: 0 }}
-    />
+    <>
+      <ResultsCard
+        results={data.results}
+        questions={data.questions}
+        summary={data.summary ?? { total: 0, correct: 0, incorrect: 0 }}
+      />
+      <Link to="/" className="flex justify-center">
+        <Button variant={"default"} className="my-2">
+          Powrót do strony glownej
+        </Button>
+      </Link>
+    </>
   );
 };
 
