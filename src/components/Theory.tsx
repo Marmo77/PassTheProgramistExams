@@ -31,14 +31,14 @@ const Theory = () => {
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           Rozpocznij test teoretyczny z wybranej kwalifikacji. Test zawiera 40
-          losowych pytań i trwa 45 minut.
+          losowych pytań i trwa 60 minut.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <Card
           className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
-          onClick={() => handleSubjectSelect("INF03")}
+          onClick={() => handleSubjectSelect("inf03")}
         >
           <CardHeader className="text-center pb-4">
             <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -67,7 +67,7 @@ const Theory = () => {
             <Button
               className="w-full"
               size="lg"
-              onClick={() => handleSubjectSelect("INF03")}
+              onClick={() => handleSubjectSelect("inf03")}
             >
               Rozpocznij test INF.03
             </Button>
@@ -76,7 +76,7 @@ const Theory = () => {
 
         <Card
           className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
-          onClick={() => handleSubjectSelect("INF04")}
+          onClick={() => handleSubjectSelect("inf04")}
         >
           <CardHeader className="text-center pb-4">
             <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -9,7 +9,7 @@ export const MoveB = () => {
         <Link to={"/exams"}>
           <Button variant={"outline"}>Load Exams Names</Button>
         </Link>
-        <Link to={"/questions"}>
+        <Link to={"/theory"}>
           <Button variant={"destructive"}>Load Questions</Button>
         </Link>
       </div>

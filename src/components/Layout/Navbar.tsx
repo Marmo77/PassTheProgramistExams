@@ -19,13 +19,13 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           <a
-            href="#teoria"
+            href="/theory"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Teoria
           </a>
           <a
-            href="#praktyka"
+            href="/exams"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Praktyka
