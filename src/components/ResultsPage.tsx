@@ -8,7 +8,7 @@ import NoResults from "./Question/NoResults";
 
 type PersistedResults = {
   results: QuestionEvaluation[];
-  summary?: { total: number; correct: number; incorrect: number };
+  summary?: { total: number; correct: number; incorrect: number; time: number };
   questions: QuestionType[];
 };
 
@@ -45,7 +45,9 @@ const ResultsPage = () => {
       <ResultsCard
         results={data.results}
         questions={data.questions}
-        summary={data.summary ?? { total: 0, correct: 0, incorrect: 0 }}
+        summary={
+          data.summary ?? { total: 0, correct: 0, incorrect: 0, time: 0 }
+        }
       />
       <Link to="/" className="flex justify-center">
         <Button variant={"default"} className="my-2">
