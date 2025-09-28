@@ -30,8 +30,8 @@ export const QuestionResults = (
     incorrect: results.filter((r) => !r.isCorrect).length,
   };
 
-  console.log("Exam results:", results);
-  console.log("Summary:", summary);
+  // console.log("Exam results:", results);
+  // console.log("Summary:", summary);
 
   return { results, summary };
 };

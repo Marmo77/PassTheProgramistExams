@@ -8,8 +8,9 @@ import { QuestionResults } from "@/hooks/QuestionResults";
 import type { QuestionEvaluation } from "@/hooks/QuestionResults";
 import { useNavigate } from "react-router-dom";
 import LoadingQuestions from "./LoadingQuestions";
-
-const Question = ({ type }: { type: string }) => {
+import { useParams } from "react-router-dom";
+// { type }: { type: string }
+const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [question, setQuestion] = useState<QuestionType[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -20,9 +21,13 @@ const Question = ({ type }: { type: string }) => {
 
   const navigate = useNavigate();
 
+  // get type from params
+  const params = useParams<string>();
+  const exam_type: string = params.type ?? "inf03";
+
   useEffect(() => {
-    console.log("typ pytań: ", type);
-    getQuestions("inf03", 10)
+    // console.log("typ pytań: ", type);
+    getQuestions(exam_type, 10)
       .then((res) => {
         // Pobieranie X pytań z Bazy Danych
         const q = res as QuestionType[];
@@ -40,7 +45,7 @@ const Question = ({ type }: { type: string }) => {
           setIsLoading(false);
         }, 1300);
       });
-    console.log("load", isLoading);
+    // console.log("load", isLoading);
   }, []);
   const handleNextQuestion = () => {
     // Przechodzi do następnego pytania
@@ -89,12 +94,12 @@ const Question = ({ type }: { type: string }) => {
         questions: question,
       })
     );
-    navigate("/results");
+    navigate("/theory/results/" + exam_type);
   };
   return (
     <>
       {isLoading ? (
-        <LoadingQuestions />
+        <LoadingQuestions exam_type={exam_type} />
       ) : (
         <section className="mx-auto max-w-7xl py-12">
           <div className="grid grid-cols-6 gap-12">
@@ -138,7 +143,7 @@ const Question = ({ type }: { type: string }) => {
                     })}
                   </div>
                 </CardContent>
-                <CardFooter>{""}</CardFooter>
+                <CardFooter></CardFooter>
               </Card>
             </div>
             <div className="col-span-4">

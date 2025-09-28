@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
 
-const LoadingQuestions = () => {
+const LoadingQuestions = ({ exam_type }: { exam_type: string }) => {
   return (
     <section className="mx-auto max-w-4xl py-12">
       <div className="flex flex-col gap-4 items-center py-4">
@@ -10,7 +10,8 @@ const LoadingQuestions = () => {
           Przygotowywanie testu...
         </h1>
         <p className="text-lg text-muted-foreground">
-          Losujemy 40 pytań z kwalifikacji INF03
+          {/* Losujemy 40 pytań z kwalifikacji {exam_type.toUpperCase()} */}
+          Losujemy 40 pytań z kwalifikacji {exam_type.toUpperCase()}
         </p>
       </div>
       <Card className="p-8">
