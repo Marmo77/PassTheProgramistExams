@@ -1,11 +1,8 @@
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { Card, CardContent, CardHeader } from "../ui/card";
 import { Button } from "../ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import type { QuestionType } from "@/types/types";
-import { Skeleton } from "../ui/skeleton";
 
-// { question }: { question: Question[] }
 const QuestionCard = ({
   question,
   questionNumber,

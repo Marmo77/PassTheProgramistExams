@@ -30,11 +30,6 @@ const ResultsCard = ({
     navigate("/theory");
     //Toaster in future with successfully deleted
   };
-  const formatDoingTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
   return (
     <section className="mx-auto max-w-7xl py-12">
       <Card className="border shadow-sm">
@@ -89,140 +84,176 @@ const ResultsCard = ({
               {resultPoints}%
             </Badge>
           </div>
-
           {/* Progress */}
-          <div className="w-full max-w-md mx-auto">
-            <Progress
-              value={resultPoints}
-              className={`h-2 bg-gray-200 ${
-                resultPercent >= 0.5
-                  ? "[&>div]:bg-green-500"
-                  : "[&>div]:bg-red-500"
-              }`}
-            />
-            <div className="mt-2 text-xs text-muted-foreground">
-              {summary.correct} z {summary.total} poprawnych
-            </div>
-          </div>
-
-          {/* Stat Chips */}
-          <div className="grid grid-cols-3 gap-3 max-w-md mx-auto">
-            <div className="rounded-md border p-3 text-center">
-              <div className="text-xs text-muted-foreground">Wszystkie</div>
-              <div className="text-lg font-semibold">{summary.total}</div>
-            </div>
-            <div className="rounded-md border p-3 text-center">
-              <div className="text-xs text-muted-foreground">Poprawne</div>
-              <div className="text-lg font-semibold text-green-600">
-                {summary.correct}
-              </div>
-            </div>
-            <div className="rounded-md border p-3 text-center">
-              <div className="text-xs text-muted-foreground">Błędne</div>
-              <div className="text-lg font-semibold text-red-600">
-                {summary.incorrect}
-              </div>
-            </div>
-            <div className="col-span-3 gap-6 border p-2">
-              <div className="text-xs text-muted-foreground">
-                Czas realizacji
-              </div>
-              <div className="text-lg font-semibold text-blue-600">
-                {formatDoingTime(summary.time)}
-              </div>
-            </div>
-          </div>
+          <ProgressStats
+            resultPercent={resultPercent}
+            resultPoints={resultPoints}
+            summary={summary}
+          />
+          {/* Statistics */}
+          <Statistics summary={summary} />
         </CardHeader>
 
         <CardContent className="space-y-6">
-          {results.map((result, idx) => {
-            const q = questions[idx];
-            if (!q) return null;
-
-            const options: { key: "A" | "B" | "C" | "D"; text: string }[] = [
-              { key: "A", text: q.answer_a },
-              { key: "B", text: q.answer_b },
-              { key: "C", text: q.answer_c },
-              { key: "D", text: q.answer_d },
-            ];
-
-            const questionStatus =
-              result.zaznaczono === null
-                ? "not-answered"
-                : result.isCorrect
-                ? "correct"
-                : "wrong";
-
-            const statusBadge =
-              questionStatus === "correct" ? (
-                <Badge className="bg-green-500">Poprawnie</Badge>
-              ) : questionStatus === "wrong" ? (
-                <Badge variant="destructive" className="bg-red-500">
-                  Błędna odpowiedź
-                </Badge>
-              ) : (
-                <Badge
-                  variant="destructive"
-                  className="bg-yellow-500 hover:bg-yellow-600"
-                >
-                  Brak odpowiedzi
-                </Badge>
-              );
-
-            const borderAccentClass =
-              questionStatus === "correct"
-                ? "border-l-4 border-l-green-500"
-                : questionStatus === "wrong"
-                ? "border-l-4 border-l-red-500"
-                : "border-l-4 border-l-yellow-500";
-
-            return (
-              <div
-                key={idx}
-                className={`rounded-md border ${borderAccentClass} shadow-xs`}
-              >
-                <div className="flex items-start justify-between p-3 pb-0">
-                  <h3 className="text-lg font-semibold">
-                    {idx + 1}. {q.question_text}
-                  </h3>
-                  {statusBadge}
-                </div>
-
-                {/* Answers */}
-                <div className="flex flex-col gap-2 px-3 py-3">
-                  {options.map((opt) => {
-                    const isCorrectOption =
-                      opt.key === result.poprawna_odpowiedz;
-                    const isUserOption = opt.key === result.twoja_odpowiedz;
-                    const wrongUserPick = isUserOption && !result.isCorrect;
-
-                    // Styling
-                    const extra = isCorrectOption
-                      ? "border-green-500 bg-green-50 text-green-700"
-                      : wrongUserPick
-                      ? "border-red-500 bg-red-50 text-red-600"
-                      : "border-muted";
-
-                    return (
-                      <Button
-                        key={opt.key}
-                        variant={"questionButton"}
-                        size="question"
-                        className={`items-start justify-start ${extra}`}
-                        disabled
-                      >
-                        {opt.key}. {opt.text}
-                      </Button>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
+          <AnswersCards results={results} questions={questions} />
         </CardContent>
       </Card>
     </section>
   );
+};
+
+const ProgressStats = ({
+  resultPercent,
+  resultPoints,
+  summary,
+}: {
+  resultPercent: number;
+  resultPoints: number;
+  summary: { total: number; correct: number };
+}) => {
+  return (
+    <div className="w-full max-w-md mx-auto">
+      <Progress
+        value={resultPoints}
+        className={`h-2 bg-gray-200 ${
+          resultPercent >= 0.5 ? "[&>div]:bg-green-500" : "[&>div]:bg-red-500"
+        }`}
+      />
+      <div className="mt-2 text-xs text-muted-foreground">
+        {summary.correct} z {summary.total} poprawnych
+      </div>
+    </div>
+  );
+};
+
+const Statistics = ({
+  summary,
+}: {
+  summary: { total: number; correct: number; incorrect: number; time: number };
+}) => {
+  const formatDoingTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+  return (
+    <div className="grid grid-cols-3 gap-3 max-w-md mx-auto">
+      <div className="rounded-md border p-3 text-center">
+        <div className="text-xs text-muted-foreground">Wszystkie</div>
+        <div className="text-lg font-semibold">{summary.total}</div>
+      </div>
+      <div className="rounded-md border p-3 text-center">
+        <div className="text-xs text-muted-foreground">Poprawne</div>
+        <div className="text-lg font-semibold text-green-600">
+          {summary.correct}
+        </div>
+      </div>
+      <div className="rounded-md border p-3 text-center">
+        <div className="text-xs text-muted-foreground">Błędne</div>
+        <div className="text-lg font-semibold text-red-600">
+          {summary.incorrect}
+        </div>
+      </div>
+      <div className="col-span-3 gap-6 border p-2">
+        <div className="text-xs text-muted-foreground">Czas realizacji</div>
+        <div className="text-lg font-semibold text-blue-600">
+          {formatDoingTime(summary.time)}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AnswersCards = ({
+  results,
+  questions,
+}: {
+  results: QuestionEvaluation[];
+  questions: QuestionType[];
+}) => {
+  return results.map((result, idx) => {
+    const q = questions[idx];
+    if (!q) return null;
+
+    const options: { key: "A" | "B" | "C" | "D"; text: string }[] = [
+      { key: "A", text: q.answer_a },
+      { key: "B", text: q.answer_b },
+      { key: "C", text: q.answer_c },
+      { key: "D", text: q.answer_d },
+    ];
+
+    const questionStatus =
+      result.zaznaczono === null
+        ? "not-answered"
+        : result.isCorrect
+        ? "correct"
+        : "wrong";
+
+    const statusBadge =
+      questionStatus === "correct" ? (
+        <Badge className="bg-green-500">Poprawnie</Badge>
+      ) : questionStatus === "wrong" ? (
+        <Badge variant="destructive" className="bg-red-500">
+          Błędna odpowiedź
+        </Badge>
+      ) : (
+        <Badge
+          variant="destructive"
+          className="bg-yellow-500 hover:bg-yellow-600"
+        >
+          Brak odpowiedzi
+        </Badge>
+      );
+
+    const borderAccentClass =
+      questionStatus === "correct"
+        ? "border-l-4 border-l-green-500"
+        : questionStatus === "wrong"
+        ? "border-l-4 border-l-red-500"
+        : "border-l-4 border-l-yellow-500";
+
+    return (
+      <div
+        key={idx}
+        className={`rounded-md border ${borderAccentClass} shadow-xs`}
+      >
+        <div className="flex max-md:flex-col max-md:items-center max-md:gap-3 items-start justify-between p-3 pb-0">
+          <h3 className="text-lg font-semibold">
+            {idx + 1}. {q.question_text}
+          </h3>
+          {statusBadge}
+        </div>
+
+        {/* Answers */}
+        <div className="flex flex-col gap-2 px-3 py-3">
+          {options.map((opt) => {
+            const isCorrectOption = opt.key === result.poprawna_odpowiedz;
+            const isUserOption = opt.key === result.twoja_odpowiedz;
+            const wrongUserPick = isUserOption && !result.isCorrect;
+
+            // Styling
+            const extra = isCorrectOption
+              ? "border-green-500 bg-green-50 text-green-700"
+              : wrongUserPick
+              ? "border-red-500 bg-red-50 text-red-600"
+              : "border-muted";
+
+            return (
+              <Button
+                key={opt.key}
+                variant={"questionButton"}
+                size="question"
+                className={`items-start text-left whitespace-normal break-words  justify-start ${extra}`}
+                disabled
+              >
+                {opt.key}. {opt.text}
+              </Button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  });
 };
 
 export default ResultsCard;
