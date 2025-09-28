@@ -84,24 +84,21 @@ const Question = () => {
   };
 
   const handleFinish = () => {
-    const { results, summary } = QuestionResults(question, answers);
-    const exam_type_result = "results_" + exam_type;
-    localStorage.setItem(
-      exam_type_result,
-      JSON.stringify({
-        results,
-        summary,
-        questions: question,
-      })
-    );
-    navigate("/theory/results/" + exam_type);
-
-    useEffect(() => {
-      const answeredQuestions = answers.filter((val) => val !== null);
-
-      const progress = (answeredQuestions.length / question.length) * 100;
-      console.log(progress);
-    }, [answers]);
+    try {
+      const { results, summary } = QuestionResults(question, answers);
+      const exam_type_result = "results_" + exam_type;
+      localStorage.setItem(
+        exam_type_result,
+        JSON.stringify({
+          results,
+          summary,
+          questions: question,
+        })
+      );
+      navigate("/theory/results/" + exam_type);
+    } catch (error) {
+      console.error("Error finishing quiz:", error);
+    }
   };
   return (
     <>
