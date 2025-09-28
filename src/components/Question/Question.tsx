@@ -14,6 +14,17 @@ import NoQuestions from "./NoQuestions";
 import { Progress } from "../ui/progress";
 import ProgressNavigation from "./ProgressNavigation";
 import Timer from "./Timer";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 // { type }: { type: string }
 const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -154,13 +165,41 @@ const Question = () => {
                     Poprzednie
                   </Button>
                   {currentQuestion === question.length ? (
-                    <Button
-                      variant={"destructive"}
-                      className="select-none cursor-pointer hover:scale-95 transition-all duration-300"
-                      onClick={handleFinish}
-                    >
-                      Zakończ
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant={"destructive"}
+                          className="select-none cursor-pointer hover:scale-95 transition-all duration-300"
+                          // onClick={handleFinish}
+                        >
+                          Zakończ
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Napewno chcesz zakończyć ten egzamin?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Odpowiedziałeś na{" "}
+                            {answers.filter((answer) => answer !== null)
+                              .length == question.length
+                              ? "wszystkie pytania!"
+                              : answers.filter((answer) => answer !== null)
+                                  .length +
+                                "/" +
+                                question.length +
+                                " pytań."}
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Powrót</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleFinish}>
+                            Zakończ
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   ) : (
                     <Button
                       onClick={handleNextQuestion}
