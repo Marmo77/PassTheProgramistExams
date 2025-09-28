@@ -20,18 +20,18 @@ const QuestionCard = ({
   const handleQuestionSelect = (answer: string) => {
     onSelect(answer);
   };
+
   return (
     <Card className="px-3">
       <CardHeader className="">
         <Badge
-          // {question.subject === "inf03" ? variant="destructive" : variant="default"}
-          className="ml-0 px-2 py-1"
+          className="ml-0 px-2 py-1 w-fit"
           variant={question[0]?.subject === "inf03" ? "destructive" : "default"}
         >
           {question[0]?.subject ?? ""}
         </Badge>
         <div className="flex py-2">
-          <h1 className={`text-lg font-medium`}>
+          <h1 className="text-lg font-medium leading-relaxed">
             {questionNumber}. {question[questionNumber - 1]?.question_text}
           </h1>
         </div>
@@ -40,47 +40,79 @@ const QuestionCard = ({
         <div className="flex flex-col px-4 gap-2">
           <Button
             variant={"questionButton"}
-            className={`items-start justify-start ${
-              selectedAnswer === "A" ? "border-primary" : ""
-            }`}
+            className={`
+              items-start justify-start text-left 
+              whitespace-normal break-words
+              h-auto min-h-[3rem] 
+              ${selectedAnswer === "A" ? "border-primary" : ""}
+            `}
             id="A"
             size="question"
             onClick={() => handleQuestionSelect("A")}
           >
-            A. {question[questionNumber - 1]?.answer_a}
+            <span className="block w-full text-left">
+              <span className="font-semibold mr-2">A.</span>
+              <span className="break-words">
+                {question[questionNumber - 1]?.answer_a}
+              </span>
+            </span>
           </Button>
           <Button
             variant={"questionButton"}
-            className={`items-start justify-start ${
-              selectedAnswer === "B" ? "border-primary" : ""
-            }`}
+            className={`
+              items-start justify-start text-left 
+              whitespace-normal break-words
+              h-auto min-h-[3rem]
+              ${selectedAnswer === "B" ? "border-primary" : ""}
+            `}
             id="B"
             size="question"
             onClick={() => handleQuestionSelect("B")}
           >
-            B. {question[questionNumber - 1]?.answer_b}
+            <span className="block w-full text-left">
+              <span className="font-semibold mr-2">B.</span>
+              <span className="break-words">
+                {question[questionNumber - 1]?.answer_b}
+              </span>
+            </span>
           </Button>
           <Button
             variant={"questionButton"}
-            className={`items-start justify-start ${
-              selectedAnswer === "C" ? "border-primary" : ""
-            }`}
+            className={`
+              items-start justify-start text-left 
+              whitespace-normal break-words
+              h-auto min-h-[3rem]
+              ${selectedAnswer === "C" ? "border-primary" : ""}
+            `}
             id="C"
             size="question"
             onClick={() => handleQuestionSelect("C")}
           >
-            C. {question[questionNumber - 1]?.answer_c}
+            <span className="block w-full text-left">
+              <span className="font-semibold mr-2">C.</span>
+              <span className="break-words">
+                {question[questionNumber - 1]?.answer_c}
+              </span>
+            </span>
           </Button>
           <Button
             variant={"questionButton"}
-            size="question"
-            className={`items-start justify-start ${
-              selectedAnswer === "D" ? "border-primary" : ""
-            }`}
+            className={`
+              items-start justify-start text-left 
+              whitespace-normal break-words
+              h-auto min-h-[3rem]
+              ${selectedAnswer === "D" ? "border-primary" : ""}
+            `}
             id="D"
+            size="question"
             onClick={() => handleQuestionSelect("D")}
           >
-            D. {question[questionNumber - 1]?.answer_d}
+            <span className="block w-full text-left">
+              <span className="font-semibold mr-2">D.</span>
+              <span className="break-words">
+                {question[questionNumber - 1]?.answer_d}
+              </span>
+            </span>
           </Button>
         </div>
       </CardContent>

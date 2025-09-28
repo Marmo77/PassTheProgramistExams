@@ -85,8 +85,8 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center py-12 justify-center p-4 bg-gray-50">
-          <Card className="p-8 border-border bg-card">
+        <div className="min-h-screen flex items-center  py-12 justify-center p-4 bg-gray-50">
+          <Card className="p-8 border-border bg-card max-w-2xl">
             {/* Header */}
             <div className="text-center space-y-6 mb-8">
               <div className="flex justify-center">

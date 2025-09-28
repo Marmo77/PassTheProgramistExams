@@ -139,8 +139,8 @@ const Question = () => {
       ) : question.length === 0 ? (
         <NoQuestions exam_type={exam_type} />
       ) : (
-        <section className="mx-auto max-w-7xl">
-          <ErrorTestComponent />
+        <section className="mx-auto max-w-7xl max-xl:px-12 max-lg:px-4 max-md:px-2">
+          {/* <ErrorTestComponent /> -- test error handling */}
           {/* PROGRESS BAR */}
           <ProgressNavigation
             currentQuestion={currentQuestion}
@@ -148,17 +148,16 @@ const Question = () => {
             exam_type={exam_type}
           />
           {/* MAIN */}
-          <div className="flex gap-12 pt-2">
+          <div className="flex flex-col lg:flex-row gap-8 pt-2">
             {/* Main Questions + Navigation */}
-            <div className="flex flex-1 flex-col gap-8">
-              <div>
-                <QuestionCard
-                  question={question}
-                  questionNumber={currentQuestion}
-                  selectedAnswer={selectedAnswer}
-                  onSelect={handleSelect} // replace setSelectedAnswer
-                />
-              </div>
+            <div className="flex-1 space-y-8">
+              <QuestionCard
+                question={question}
+                questionNumber={currentQuestion}
+                selectedAnswer={selectedAnswer}
+                onSelect={handleSelect} // replace setSelectedAnswer
+              />
+              {/* Navigation Buttons */}
               <div className="flex justify-between px-2">
                 <Button
                   variant={"outline"}
@@ -211,15 +210,15 @@ const Question = () => {
               </div>
             </div>
             {/* Sidebar | Questions Map | Timer*/}
-            <div className="flex w-72 flex-col gap-12">
+            <div className="lg:w-72 space-y-6">
               {/* Timer */}
               <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
-              <Card className="h-full">
+              <Card className="lg:block hidden">
                 <CardHeader>
                   <h2 className="text-lg">Pytania</h2>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-6 gap-4">
+                  <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-6 gap-2">
                     {question.map((item, idx) => {
                       const answered =
                         answers[idx] !== null && answers[idx] !== undefined; // Sprawdza czy odpowiedź jest zaznaczona
@@ -245,7 +244,7 @@ const Question = () => {
                 </CardContent>
               </Card>
               {/* Credit Avatar */}
-              <div className="flex items-center justify-center gap-2 text-xs pt-4 text-muted-foreground">
+              <div className="flex items-center max-md:mb-8 justify-center gap-2 text-xs pt-4 text-muted-foreground">
                 <Avatar className="w-6 h-6">
                   <AvatarImage
                     src="https://github.com/Marmo77.png"

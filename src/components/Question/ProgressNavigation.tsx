@@ -29,7 +29,7 @@ const ProgressNavigation = ({
     navigate("/");
   };
   return (
-    <div className="max-w-5xl mx-auto px-16 py-6">
+    <div className="max-w-5xl mx-auto max-lg:px-4 max-md:px-2 py-6">
       <div className="flex flex-col">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm text-muted-foreground">
