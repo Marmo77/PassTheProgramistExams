@@ -69,7 +69,7 @@ const ResultsCard = ({
             </HoverCard>
             <h2 className="text-3xl font-extrabold tracking-tight">Wyniki</h2>
             <p className="text-sm text-muted-foreground">
-              Podsumowanie twojego testu {questions[0].subject}
+              Podsumowanie twojego testu {questions[0].subject.toUpperCase()}
             </p>
           </div>
 

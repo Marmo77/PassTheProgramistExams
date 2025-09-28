@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { Clock } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import NoQuestions from "./NoQuestions";
+import { Progress } from "../ui/progress";
 // { type }: { type: string }
 const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -93,6 +94,13 @@ const Question = () => {
       })
     );
     navigate("/theory/results/" + exam_type);
+
+    useEffect(() => {
+      const answeredQuestions = answers.filter((val) => val !== null);
+
+      const progress = (answeredQuestions.length / question.length) * 100;
+      console.log(progress);
+    }, [answers]);
   };
   return (
     <>
@@ -102,6 +110,9 @@ const Question = () => {
         <NoQuestions exam_type={exam_type} />
       ) : (
         <section className="mx-auto max-w-7xl py-12">
+          {/* PROGRESS BAR */}
+          <div>{/* <Progress value={progress} /> */}</div>
+          {/* MAIN */}
           <div className="flex gap-12">
             {/* Main Questions + Navigation */}
             <div className="flex flex-1 flex-col gap-8">
@@ -209,7 +220,17 @@ const Question = () => {
                     />
                     <AvatarFallback>M77</AvatarFallback>
                   </Avatar>
-                  <span>by Marmo77</span>
+                  <span>
+                    by{" "}
+                    <span
+                      className="font-bold hover:underline cursor-pointer"
+                      onClick={() =>
+                        window.open("https://github.com/Marmo77", "_blank")
+                      }
+                    >
+                      Marmo77
+                    </span>
+                  </span>
                 </div>
               </div>
             </div>
