@@ -46,7 +46,7 @@ const Question = () => {
         }, 1300);
       });
     // console.log("load", isLoading);
-  }, []);
+  }, [exam_type]);
   const handleNextQuestion = () => {
     // Przechodzi do następnego pytania
     const next = Math.min(currentQuestion + 1, question.length || 1); // Sprawdza czy nie wyjdzie poza zakres

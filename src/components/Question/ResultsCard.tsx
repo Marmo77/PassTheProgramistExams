@@ -5,9 +5,14 @@ import { Badge } from "../ui/badge";
 import { Progress } from "../ui/progress";
 import type { QuestionType } from "@/types/types";
 import type { QuestionEvaluation } from "@/hooks/QuestionResults";
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { Skeleton } from "../ui/skeleton";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, Info, Trash2 } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "../ui/hover-card";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const ResultsCard = ({
   results,
@@ -20,6 +25,13 @@ const ResultsCard = ({
 }) => {
   const resultPercent = summary.total > 0 ? summary.correct / summary.total : 0;
   const resultPoints = Math.round(resultPercent * 100);
+
+  const navigate = useNavigate();
+  const onDeleteResult = () => {
+    localStorage.removeItem("results_" + questions[0].subject);
+    navigate("/");
+    //Toaster in future with successfully deleted
+  };
   return (
     <section className="mx-auto max-w-7xl py-12">
       <Card className="border shadow-sm">
@@ -31,6 +43,31 @@ const ResultsCard = ({
                 Powrót do strony glownej
               </Button>
             </Link>
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button
+                  variant={"destructive"}
+                  size={"lg"}
+                  className="absolute right-4 top-1 group"
+                  onClick={onDeleteResult}
+                >
+                  <Trash2 className="h-10 w-10 group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-6 duration-500" />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent
+                side="left"
+                sideOffset={15}
+                align="start"
+                className="w-80 cursor-pointer"
+              >
+                <div className="space-y-1 flex justify-center gap-2 items-center">
+                  <Info className="h-6 w-6" />
+                  <p className="text-base">
+                    Usuń wynik i rozpocznij kolejny test
+                  </p>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
             <h2 className="text-3xl font-extrabold tracking-tight">Wyniki</h2>
             <p className="text-sm text-muted-foreground">
               Podsumowanie twojego testu {questions[0].subject}
