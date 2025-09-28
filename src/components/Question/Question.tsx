@@ -25,6 +25,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import ErrorTestComponent from "../ErrorTestComponent";
 // { type }: { type: string }
 const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -139,6 +140,7 @@ const Question = () => {
         <NoQuestions exam_type={exam_type} />
       ) : (
         <section className="mx-auto max-w-7xl">
+          <ErrorTestComponent />
           {/* PROGRESS BAR */}
           <ProgressNavigation
             currentQuestion={currentQuestion}
