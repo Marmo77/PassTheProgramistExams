@@ -31,61 +31,50 @@ const ResultsCard = ({
     //Toaster in future with successfully deleted
   };
   return (
-    <section className="mx-auto max-w-7xl py-12">
+    <section className="mx-auto max-w-7xl py-12 max-xl:px-12 max-md:py-6 max-md:px-6">
       <Card className="border shadow-sm">
         <CardHeader className="text-center space-y-4 relative">
-          <div className="space-y-2">
-            <Link to="/">
-              <Button variant={"default"} className="absolute left-4 top-1">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Powrót do strony glownej
-              </Button>
-            </Link>
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <Button
-                  variant={"destructive"}
-                  size={"lg"}
-                  className="absolute right-4 top-1 group"
-                  onClick={onDeleteResult}
-                >
-                  <Trash2 className="h-10 w-10 group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-6 duration-500" />
+          <div className="space-y-2 relative">
+            <div className="flex justify-between items-center  min-md:absolute w-full top-1">
+              <Link to="/">
+                <Button variant={"default"} className="">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Powrót do strony glownej
                 </Button>
-              </HoverCardTrigger>
-              <HoverCardContent
-                side="left"
-                sideOffset={15}
-                align="start"
-                className="w-80 cursor-pointer"
-              >
-                <div className="space-y-1 flex justify-center gap-2 items-center">
-                  <Info className="h-6 w-6" />
-                  <p className="text-base">
-                    Usuń wynik i rozpocznij kolejny test
-                  </p>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
+              </Link>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Button
+                    variant={"destructive"}
+                    size={"lg"}
+                    className="group"
+                    onClick={onDeleteResult}
+                  >
+                    <Trash2 className="h-10 w-10 group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-6 duration-500" />
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent
+                  side="left"
+                  sideOffset={15}
+                  align="start"
+                  className="w-80 cursor-pointer"
+                >
+                  <div className="space-y-1 flex justify-center gap-2 items-center">
+                    <Info className="h-6 w-6" />
+                    <p className="text-base">
+                      Usuń wynik i rozpocznij kolejny test
+                    </p>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
             <h2 className="text-3xl font-extrabold tracking-tight">Wyniki</h2>
             <p className="text-sm text-muted-foreground">
               Podsumowanie twojego testu {questions[0].subject.toUpperCase()}
             </p>
           </div>
-
-          {/* Score Badge */}
-          <div className="flex items-center justify-center gap-3">
-            <span className="text-base font-medium">Uzyskany wynik:</span>
-            <Badge
-              variant={resultPercent >= 0.5 ? "default" : "destructive"}
-              className={`text-base px-3 py-1 ${
-                resultPercent >= 0.5 ? "bg-green-500" : "bg-red-500"
-              }`}
-            >
-              {resultPoints}%
-            </Badge>
-          </div>
-          {/* Progress */}
-          <ProgressStats
+          {/* Progress and Score*/}
+          <ScoreAndProgress
             resultPercent={resultPercent}
             resultPoints={resultPoints}
             summary={summary}
@@ -102,7 +91,7 @@ const ResultsCard = ({
   );
 };
 
-const ProgressStats = ({
+const ScoreAndProgress = ({
   resultPercent,
   resultPoints,
   summary,
@@ -112,17 +101,30 @@ const ProgressStats = ({
   summary: { total: number; correct: number };
 }) => {
   return (
-    <div className="w-full max-w-md mx-auto">
-      <Progress
-        value={resultPoints}
-        className={`h-2 bg-gray-200 ${
-          resultPercent >= 0.5 ? "[&>div]:bg-green-500" : "[&>div]:bg-red-500"
-        }`}
-      />
-      <div className="mt-2 text-xs text-muted-foreground">
-        {summary.correct} z {summary.total} poprawnych
+    <>
+      <div className="flex items-center justify-center gap-3">
+        <span className="text-base font-medium">Uzyskany wynik:</span>
+        <Badge
+          variant={resultPercent >= 0.5 ? "default" : "destructive"}
+          className={`text-base px-3 py-1 ${
+            resultPercent >= 0.5 ? "bg-green-500" : "bg-red-500"
+          }`}
+        >
+          {resultPoints}%
+        </Badge>
       </div>
-    </div>
+      <div className="w-full max-w-md mx-auto">
+        <Progress
+          value={resultPoints}
+          className={`h-2 bg-gray-200 ${
+            resultPercent >= 0.5 ? "[&>div]:bg-green-500" : "[&>div]:bg-red-500"
+          }`}
+        />
+        <div className="mt-2 text-xs text-muted-foreground">
+          {summary.correct} z {summary.total} poprawnych
+        </div>
+      </div>
+    </>
   );
 };
 
