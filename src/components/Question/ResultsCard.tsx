@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
@@ -20,7 +19,7 @@ const ResultsCard = ({
 }: {
   results: QuestionEvaluation[];
   questions: QuestionType[];
-  summary: { total: number; correct: number; incorrect: number };
+  summary: { total: number; correct: number; incorrect: number; time: number };
 }) => {
   const resultPercent = summary.total > 0 ? summary.correct / summary.total : 0;
   const resultPoints = Math.round(resultPercent * 100);
@@ -30,6 +29,11 @@ const ResultsCard = ({
     localStorage.removeItem("results_" + questions[0].subject);
     navigate("/");
     //Toaster in future with successfully deleted
+  };
+  const formatDoingTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
   return (
     <section className="mx-auto max-w-7xl py-12">
@@ -117,6 +121,14 @@ const ResultsCard = ({
               <div className="text-xs text-muted-foreground">Błędne</div>
               <div className="text-lg font-semibold text-red-600">
                 {summary.incorrect}
+              </div>
+            </div>
+            <div className="col-span-3 gap-6 border p-2">
+              <div className="text-xs text-muted-foreground">
+                Czas realizacji
+              </div>
+              <div className="text-lg font-semibold text-blue-600">
+                {formatDoingTime(summary.time)}
               </div>
             </div>
           </div>

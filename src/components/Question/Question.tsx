@@ -89,7 +89,12 @@ const Question = () => {
 
   const handleFinish = () => {
     try {
-      const { results, summary } = QuestionResults(question, answers);
+      const DoingTime = Math.round(60 * 60 - timeLeft);
+      const { results, summary } = QuestionResults(
+        question,
+        answers,
+        DoingTime
+      );
       const exam_type_result = "results_" + exam_type;
       localStorage.setItem(
         exam_type_result,
@@ -97,6 +102,7 @@ const Question = () => {
           results,
           summary,
           questions: question,
+          time: DoingTime,
         })
       );
       navigate("/theory/results/" + exam_type);
