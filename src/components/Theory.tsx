@@ -64,11 +64,7 @@ const Theory = () => {
                 Bazy danych
               </Badge>
             </div>
-            <Button
-              className="w-full"
-              size="lg"
-              onClick={() => handleSubjectSelect("inf03")}
-            >
+            <Button className="w-full" size="lg">
               Rozpocznij test INF.03
             </Button>
           </CardContent>
@@ -102,11 +98,7 @@ const Theory = () => {
                 Struktury danych
               </Badge>
             </div>
-            <Button
-              className="w-full"
-              size="lg"
-              onClick={() => handleSubjectSelect("INF04")}
-            >
+            <Button className="w-full" size="lg">
               Rozpocznij test INF.04
             </Button>
           </CardContent>
@@ -116,7 +108,7 @@ const Theory = () => {
       <div className="text-center">
         <Button variant="outline" onClick={onBackToHome} className="px-8">
           <ChevronLeft className="w-4 h-4 mr-2" />
-          Powrót do menu głównego
+          Powrót do Strony Głównej
         </Button>
       </div>
 
@@ -127,7 +119,18 @@ const Theory = () => {
             <AvatarImage src="https://github.com/Marmo77.png" alt="Marmo77" />
             <AvatarFallback>M</AvatarFallback>
           </Avatar>
-          <span>Stworzono przez Marmo77</span>
+          <span className="text-sm">
+            Stworzono przez{" "}
+            <Button
+              className="-ml-2"
+              variant="link"
+              onClick={() =>
+                window.open("https://github.com/Marmo77", "_blank")
+              }
+            >
+              Marmo77
+            </Button>
+          </span>
         </div>
       </div>
     </div>

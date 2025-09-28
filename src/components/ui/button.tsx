@@ -21,7 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         questionButton:
           "hover:text-accent-foreground border bg-background shadow-xs hover:bg-accent/50 hover:border-primary hover:text-accent-foreground",
-        questionButtonActive:
+        questionMapButtonActive:
           "hover:text-accent-foreground border bg-background shadow-xs hover:bg-accent/50 active:border-blue-500 hover:border-blue-500 hover:text-accent-foreground",
       },
       size: {
@@ -29,7 +29,7 @@ const buttonVariants = cva(
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
-        question: "py-3 px-4",
+        question: "py-3 px-6",
       },
     },
     defaultVariants: {

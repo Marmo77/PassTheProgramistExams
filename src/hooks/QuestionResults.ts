@@ -10,7 +10,8 @@ export type QuestionEvaluation = {
 
 export const QuestionResults = (
   questions: QuestionType[],
-  answers: (string | null)[]
+  answers: (string | null)[],
+  DoingTime: number
 ) => {
   const results: QuestionEvaluation[] = questions.map((q, idx) => {
     const selected = answers[idx] ?? null;
@@ -28,10 +29,11 @@ export const QuestionResults = (
     total: questions.length,
     correct: results.filter((r) => r.isCorrect).length,
     incorrect: results.filter((r) => !r.isCorrect).length,
+    time: DoingTime,
   };
 
-  console.log("Exam results:", results);
-  console.log("Summary:", summary);
+  // console.log("Exam results:", results);
+  // console.log("Summary:", summary);
 
   return { results, summary };
 };

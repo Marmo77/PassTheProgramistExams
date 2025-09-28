@@ -17,9 +17,6 @@ const QuestionCard = ({
   selectedAnswer: string | null;
   onSelect: (answer: string) => void;
 }) => {
-  const openCreator = () => {
-    window.open("https://github.com/Marmo77", "_blank");
-  };
   const handleQuestionSelect = (answer: string) => {
     onSelect(answer);
   };
@@ -87,16 +84,6 @@ const QuestionCard = ({
           </Button>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-end">
-        <Avatar className="cursor-pointer w-7 h-7" onClick={openCreator}>
-          <AvatarImage
-            src="https://github.com/Marmo77.png"
-            alt="@Marmo77"
-            title="Credits: Marmo77"
-          />
-          <AvatarFallback className="text-[8px]">Marmo77</AvatarFallback>
-        </Avatar>
-      </CardFooter>
     </Card>
   );
 };
