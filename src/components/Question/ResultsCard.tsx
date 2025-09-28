@@ -12,7 +12,6 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "../ui/hover-card";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const ResultsCard = ({
   results,
