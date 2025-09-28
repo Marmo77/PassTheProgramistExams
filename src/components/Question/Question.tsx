@@ -14,6 +14,17 @@ import NoQuestions from "./NoQuestions";
 import { Progress } from "../ui/progress";
 import ProgressNavigation from "./ProgressNavigation";
 import Timer from "./Timer";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 // { type }: { type: string }
 const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -31,6 +42,9 @@ const Question = () => {
   // get type from params
   const params = useParams<string>();
   const exam_type: string = params.type ?? "inf03";
+
+  // asnwered count
+  const answeredCount = answers.filter((answer) => answer !== null).length;
 
   useEffect(() => {
     // console.log("typ pytań: ", type);
@@ -143,41 +157,61 @@ const Question = () => {
                   onSelect={handleSelect} // replace setSelectedAnswer
                 />
               </div>
-              <div className="">
-                <div className="flex justify-between px-2">
+              <div className="flex justify-between px-2">
+                <Button
+                  variant={"outline"}
+                  onClick={handlePreviousQuestion}
+                  disabled={currentQuestion === 1}
+                  className="select-none cursor-pointer hover:scale-95 active:scale-75 transition-all duration-300"
+                >
+                  Poprzednie
+                </Button>
+                {currentQuestion === question.length ? (
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant={"destructive"}
+                        className="select-none cursor-pointer hover:scale-95 transition-all duration-300"
+                        // onClick={handleFinish}
+                      >
+                        Zakończ
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Napewno chcesz zakończyć ten egzamin?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Odpowiedziałeś na{" "}
+                          {answeredCount === question.length
+                            ? "wszystkie pytania!"
+                            : answeredCount + "/" + question.length + " pytań."}
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Powrót</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleFinish}>
+                          Zakończ
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                ) : (
                   <Button
-                    variant={"outline"}
-                    onClick={handlePreviousQuestion}
-                    disabled={currentQuestion === 1}
+                    onClick={handleNextQuestion}
                     className="select-none cursor-pointer hover:scale-95 active:scale-75 transition-all duration-300"
+                    disabled={currentQuestion === question.length}
                   >
-                    Poprzednie
+                    Następne
                   </Button>
-                  {currentQuestion === question.length ? (
-                    <Button
-                      variant={"destructive"}
-                      className="select-none cursor-pointer hover:scale-95 transition-all duration-300"
-                      onClick={handleFinish}
-                    >
-                      Zakończ
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={handleNextQuestion}
-                      className="select-none cursor-pointer hover:scale-95 active:scale-75 transition-all duration-300"
-                      disabled={currentQuestion === question.length}
-                    >
-                      Następne
-                    </Button>
-                  )}
-                </div>
+                )}
               </div>
             </div>
             {/* Sidebar | Questions Map | Timer*/}
             <div className="flex w-72 flex-col gap-12">
               {/* Timer */}
               <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
-              {/* Questions */}
               <Card className="h-full">
                 <CardHeader>
                   <h2 className="text-lg">Pytania</h2>

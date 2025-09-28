@@ -27,7 +27,7 @@ const ResultsCard = ({
   const navigate = useNavigate();
   const onDeleteResult = () => {
     localStorage.removeItem("results_" + questions[0].subject);
-    navigate("/");
+    navigate("/theory");
     //Toaster in future with successfully deleted
   };
   const formatDoingTime = (time: number) => {
