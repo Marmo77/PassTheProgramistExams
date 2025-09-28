@@ -108,7 +108,7 @@ const Theory = () => {
       <div className="text-center">
         <Button variant="outline" onClick={onBackToHome} className="px-8">
           <ChevronLeft className="w-4 h-4 mr-2" />
-          Powrót do menu głównego
+          Powrót do Strony Głównej
         </Button>
       </div>
 

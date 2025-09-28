@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import NoQuestions from "./NoQuestions";
 import { Progress } from "../ui/progress";
 import ProgressNavigation from "./ProgressNavigation";
+import Timer from "./Timer";
 // { type }: { type: string }
 const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -21,6 +22,9 @@ const Question = () => {
   const [answers, setAnswers] = useState<(string | null)[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(1);
   // const [isCorrect, setIsCorrect] = useState<boolean | null>(null); // będzie używane gdy dodamy inne tryby (jeśli true -> gramy dalej, false -> koniec gry)
+
+  // Timer
+  const [timeLeft, setTimeLeft] = useState(60 * 60); // 60 * 60 = 3600 sekund = 1 godzina
 
   const navigate = useNavigate();
 
@@ -100,6 +104,13 @@ const Question = () => {
       console.error("Error finishing quiz:", error);
     }
   };
+
+  // handle time up
+  useEffect(() => {
+    if (timeLeft === 0) {
+      handleFinish();
+    }
+  }, [timeLeft]);
   return (
     <>
       {isLoading ? (
@@ -158,24 +169,8 @@ const Question = () => {
             </div>
             {/* Sidebar | Questions Map | Timer*/}
             <div className="flex w-72 flex-col gap-12">
-              {/* Time */}
-              <Card className="p-4 text-center">
-                <div className="flex justify-center ">
-                  <Clock className="w-4 h-4 mr-2 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">
-                    Pozostało
-                  </span>
-                </div>
-                <div
-                  className={`text-2xl font-mono font-medium 
-            `}
-                >
-                  {/* ${
-                timeLeft < 300 ? 'text-red-600' : 'text-foreground'
-              } */}
-                  50:00
-                </div>
-              </Card>
+              {/* Timer */}
+              <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
               {/* Questions */}
               <Card className="h-full">
                 <CardHeader>
