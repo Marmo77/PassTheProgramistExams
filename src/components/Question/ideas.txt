@@ -1,0 +1,25 @@
+Statistics Card between Timer and Questions in Quesiton.tsx
+              {/* Statistics */}
+              <Card className="p-4">
+                <h3 className="text-sm font-medium mb-3">Statystyki</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">
+                      Odpowiedziane:
+                    </span>
+                    <span className="font-medium">
+                      {answeredCount}/{question.length}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Pozostało:</span>
+                    <span className="font-medium">
+                      {question.length - answeredCount}
+                    </span>
+                  </div>
+                  <Progress
+                    value={(answeredCount / question.length) * 100}
+                    className="h-2"
+                  />
+                </div>
+              </Card>

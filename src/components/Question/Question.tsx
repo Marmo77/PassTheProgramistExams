@@ -43,6 +43,9 @@ const Question = () => {
   const params = useParams<string>();
   const exam_type: string = params.type ?? "inf03";
 
+  // asnwered count
+  const answeredCount = answers.filter((answer) => answer !== null).length;
+
   useEffect(() => {
     // console.log("typ pytań: ", type);
     getQuestions(exam_type, 10)
@@ -154,69 +157,61 @@ const Question = () => {
                   onSelect={handleSelect} // replace setSelectedAnswer
                 />
               </div>
-              <div className="">
-                <div className="flex justify-between px-2">
-                  <Button
-                    variant={"outline"}
-                    onClick={handlePreviousQuestion}
-                    disabled={currentQuestion === 1}
-                    className="select-none cursor-pointer hover:scale-95 active:scale-75 transition-all duration-300"
-                  >
-                    Poprzednie
-                  </Button>
-                  {currentQuestion === question.length ? (
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          variant={"destructive"}
-                          className="select-none cursor-pointer hover:scale-95 transition-all duration-300"
-                          // onClick={handleFinish}
-                        >
+              <div className="flex justify-between px-2">
+                <Button
+                  variant={"outline"}
+                  onClick={handlePreviousQuestion}
+                  disabled={currentQuestion === 1}
+                  className="select-none cursor-pointer hover:scale-95 active:scale-75 transition-all duration-300"
+                >
+                  Poprzednie
+                </Button>
+                {currentQuestion === question.length ? (
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant={"destructive"}
+                        className="select-none cursor-pointer hover:scale-95 transition-all duration-300"
+                        // onClick={handleFinish}
+                      >
+                        Zakończ
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>
+                          Napewno chcesz zakończyć ten egzamin?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Odpowiedziałeś na{" "}
+                          {answeredCount === question.length
+                            ? "wszystkie pytania!"
+                            : answeredCount + "/" + question.length + " pytań."}
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Powrót</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleFinish}>
                           Zakończ
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            Napewno chcesz zakończyć ten egzamin?
-                          </AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Odpowiedziałeś na{" "}
-                            {answers.filter((answer) => answer !== null)
-                              .length == question.length
-                              ? "wszystkie pytania!"
-                              : answers.filter((answer) => answer !== null)
-                                  .length +
-                                "/" +
-                                question.length +
-                                " pytań."}
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Powrót</AlertDialogCancel>
-                          <AlertDialogAction onClick={handleFinish}>
-                            Zakończ
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  ) : (
-                    <Button
-                      onClick={handleNextQuestion}
-                      className="select-none cursor-pointer hover:scale-95 active:scale-75 transition-all duration-300"
-                      disabled={currentQuestion === question.length}
-                    >
-                      Następne
-                    </Button>
-                  )}
-                </div>
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                ) : (
+                  <Button
+                    onClick={handleNextQuestion}
+                    className="select-none cursor-pointer hover:scale-95 active:scale-75 transition-all duration-300"
+                    disabled={currentQuestion === question.length}
+                  >
+                    Następne
+                  </Button>
+                )}
               </div>
             </div>
             {/* Sidebar | Questions Map | Timer*/}
             <div className="flex w-72 flex-col gap-12">
               {/* Timer */}
               <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
-              {/* Questions */}
               <Card className="h-full">
                 <CardHeader>
                   <h2 className="text-lg">Pytania</h2>
