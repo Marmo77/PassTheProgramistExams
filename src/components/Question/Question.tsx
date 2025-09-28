@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import QuestionCard from "./QuestionCard";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { Card, CardContent, CardHeader } from "../ui/card";
 import { getQuestions } from "@/hooks/getQuestions";
 import type { QuestionType } from "@/types/types";
 import { Button } from "../ui/button";
@@ -8,10 +8,11 @@ import { QuestionResults } from "@/hooks/QuestionResults";
 import { useNavigate } from "react-router-dom";
 import LoadingQuestions from "./LoadingQuestions";
 import { useParams } from "react-router-dom";
-import { Clock } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { ChevronLeft, Clock } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import NoQuestions from "./NoQuestions";
 import { Progress } from "../ui/progress";
+import ProgressNavigation from "./ProgressNavigation";
 // { type }: { type: string }
 const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -109,11 +110,15 @@ const Question = () => {
       ) : question.length === 0 ? (
         <NoQuestions exam_type={exam_type} />
       ) : (
-        <section className="mx-auto max-w-7xl py-12">
+        <section className="mx-auto max-w-7xl">
           {/* PROGRESS BAR */}
-          <div>{/* <Progress value={progress} /> */}</div>
+          <ProgressNavigation
+            currentQuestion={currentQuestion}
+            question={question}
+            exam_type={exam_type}
+          />
           {/* MAIN */}
-          <div className="flex gap-12">
+          <div className="flex gap-12 pt-2">
             {/* Main Questions + Navigation */}
             <div className="flex flex-1 flex-col gap-8">
               <div>
@@ -175,63 +180,57 @@ const Question = () => {
                 </div>
               </Card>
               {/* Questions */}
-              <div>
-                <Card className="h-full">
-                  <CardHeader>
-                    <h2 className="text-2xl font-bold">
-                      Question {currentQuestion}
-                    </h2>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-6 gap-4">
-                      {question.map((item, idx) => {
-                        const answered =
-                          answers[idx] !== null && answers[idx] !== undefined; // Sprawdza czy odpowiedź jest zaznaczona
-                        const isCurrent = currentQuestion === idx + 1; // Sprawdza czy jest aktualne pytanie
-                        return (
-                          <Button
-                            key={idx}
-                            variant={"questionMapButtonActive"}
-                            onClick={() => handleSideBarSelect(idx + 1)}
-                            className={
-                              isCurrent
-                                ? "border-blue-500"
-                                : answered
-                                ? "border-green-500 bg-green-50 text-green-600"
-                                : ""
-                            }
-                          >
-                            {idx + 1}
-                          </Button>
-                        );
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              <Card className="h-full">
+                <CardHeader>
+                  <h2 className="text-lg">Pytania</h2>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-6 gap-4">
+                    {question.map((item, idx) => {
+                      const answered =
+                        answers[idx] !== null && answers[idx] !== undefined; // Sprawdza czy odpowiedź jest zaznaczona
+                      const isCurrent = currentQuestion === idx + 1; // Sprawdza czy jest aktualne pytanie
+                      return (
+                        <Button
+                          key={idx}
+                          variant={"questionMapButtonActive"}
+                          onClick={() => handleSideBarSelect(idx + 1)}
+                          className={
+                            isCurrent
+                              ? "border-blue-500"
+                              : answered
+                              ? "border-green-500 bg-green-50 text-green-600"
+                              : ""
+                          }
+                        >
+                          {idx + 1}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
               {/* Credit Avatar */}
-              <div className="flex items-center justify-center pt-4">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Avatar className="w-6 h-6">
-                    <AvatarImage
-                      src="https://github.com/Marmo77.png"
-                      alt="Marmo77"
-                      className="rounded-xl"
-                    />
-                    <AvatarFallback>M77</AvatarFallback>
-                  </Avatar>
-                  <span>
-                    by{" "}
-                    <span
-                      className="font-bold hover:underline cursor-pointer"
-                      onClick={() =>
-                        window.open("https://github.com/Marmo77", "_blank")
-                      }
-                    >
-                      Marmo77
-                    </span>
+              <div className="flex items-center justify-center gap-2 text-xs pt-4 text-muted-foreground">
+                <Avatar className="w-6 h-6">
+                  <AvatarImage
+                    src="https://github.com/Marmo77.png"
+                    alt="Marmo77"
+                    className="rounded-xl"
+                  />
+                  <AvatarFallback>M77</AvatarFallback>
+                </Avatar>
+                <span>
+                  by{" "}
+                  <span
+                    className="font-bold hover:underline cursor-pointer"
+                    onClick={() =>
+                      window.open("https://github.com/Marmo77", "_blank")
+                    }
+                  >
+                    Marmo77
                   </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
