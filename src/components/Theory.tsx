@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardContent,
@@ -15,11 +14,6 @@ import { AppConstants } from "@/data/constants";
 
 const Theory = () => {
   const navigate = useNavigate();
-
-  const handleSubjectSelect = (subject: string) => {
-    navigate(`/theory/${subject}`);
-  };
-
   const onBackToHome = () => {
     navigate("/");
   };
@@ -37,73 +31,22 @@ const Theory = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <Card
-          className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
-          onClick={() => handleSubjectSelect("inf03")}
-        >
-          <CardHeader className="text-center pb-4">
-            <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Code className="w-8 h-8 text-blue-600" />
-            </div>
-            <CardTitle className="text-2xl">INF.03</CardTitle>
-            <CardDescription className="text-lg">
-              Tworzenie i administrowanie stronami i aplikacjami internetowymi
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2 mb-6">
-              <Badge variant="secondary" className="mr-2">
-                HTML/CSS
-              </Badge>
-              <Badge variant="secondary" className="mr-2">
-                JavaScript
-              </Badge>
-              <Badge variant="secondary" className="mr-2">
-                PHP
-              </Badge>
-              <Badge variant="secondary" className="mr-2">
-                Bazy danych
-              </Badge>
-            </div>
-            <Button className="w-full" size="lg">
-              Rozpocznij test INF.03
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card
-          className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
-          onClick={() => handleSubjectSelect("inf04")}
-        >
-          <CardHeader className="text-center pb-4">
-            <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Database className="w-8 h-8 text-green-600" />
-            </div>
-            <CardTitle className="text-2xl">INF.04</CardTitle>
-            <CardDescription className="text-lg">
-              Projektowanie i programowanie aplikacji desktopowych i mobilnych
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2 mb-6">
-              <Badge variant="secondary" className="mr-2">
-                C++
-              </Badge>
-              <Badge variant="secondary" className="mr-2">
-                Python
-              </Badge>
-              <Badge variant="secondary" className="mr-2">
-                Algorytmy
-              </Badge>
-              <Badge variant="secondary" className="mr-2">
-                Struktury danych
-              </Badge>
-            </div>
-            <Button className="w-full" size="lg">
-              Rozpocznij test INF.04
-            </Button>
-          </CardContent>
-        </Card>
+        <ExamCard
+          subject="inf03"
+          title="INF.03"
+          badges={["HTML/CSS", "JavaScript", "PHP", "Bazy danych"]}
+          description="Tworzenie i administrowanie stronami i aplikacjami internetowymi"
+          Icon={Code}
+          icon_color="blue"
+        />
+        <ExamCard
+          title="INF.04"
+          subject="inf04"
+          badges={["C++", "Python", "Algorytmy", "Struktury danych"]}
+          description="Projektowanie i programowanie aplikacji desktopowych i mobilnych"
+          Icon={Database}
+          icon_color="green"
+        />
       </div>
 
       <div className="text-center">
@@ -142,6 +85,65 @@ const Credits = () => {
         </span>
       </div>
     </div>
+  );
+};
+
+const ExamCard = ({
+  subject,
+  title,
+  badges,
+  description,
+  Icon,
+  icon_color,
+}: {
+  subject: string;
+  title: string;
+  badges: string[];
+  description: string;
+  Icon?: React.ElementType;
+  icon_color?: string;
+}) => {
+  const navigate = useNavigate();
+
+  const handleSubjectSelect = (subject: string) => {
+    navigate(`/theory/${subject}`);
+  };
+
+  return (
+    <Card
+      className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
+      onClick={() => handleSubjectSelect(subject)}
+    >
+      <CardHeader className="text-center pb-4">
+        <div
+          className={`w-16 h-16 bg-${icon_color}-100 dark:bg-${icon_color}-900/20 rounded-full flex items-center justify-center mx-auto mb-4`}
+        >
+          {Icon ? (
+            <Icon className={`w-8 h-8`} style={{ color: icon_color }} />
+          ) : (
+            <Database className={`w-8 h-8`} style={{ color: icon_color }} />
+          )}
+        </div>
+        {/* INF.04 */}
+        <CardTitle className="text-2xl">{title}</CardTitle>
+        <CardDescription className="text-lg">
+          {description}
+          {/* Projektowanie i programowanie aplikacji desktopowych i mobilnych */}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-2 mb-6">
+          {badges.map((item) => (
+            <Badge variant="secondary" className="mr-2">
+              {item}
+            </Badge>
+          ))}
+        </div>
+        <Button className="w-full" size="lg">
+          Rozpocznij test {title}
+        </Button>
+      </CardContent>
+    </Card>
   );
 };
 
