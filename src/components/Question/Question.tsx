@@ -5,13 +5,10 @@ import { getQuestions } from "@/hooks/getQuestions";
 import type { QuestionType } from "@/types/types";
 import { Button } from "../ui/button";
 import { QuestionResults } from "@/hooks/QuestionResults";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingQuestions from "./LoadingQuestions";
-import { useParams } from "react-router-dom";
-import { ChevronLeft, Clock } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import NoQuestions from "./NoQuestions";
-import { Progress } from "../ui/progress";
 import ProgressNavigation from "./ProgressNavigation";
 import Timer from "./Timer";
 import {
@@ -25,7 +22,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import ErrorTestComponent from "../ErrorTestComponent";
+import { AppConstants } from "@/data/constants";
 // { type }: { type: string }
 const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -219,7 +216,7 @@ const Question = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-6 gap-2">
-                    {question.map((item, idx) => {
+                    {question.map((_, idx) => {
                       const answered =
                         answers[idx] !== null && answers[idx] !== undefined; // Sprawdza czy odpowiedź jest zaznaczona
                       const isCurrent = currentQuestion === idx + 1; // Sprawdza czy jest aktualne pytanie
@@ -247,21 +244,23 @@ const Question = () => {
               <div className="flex items-center max-md:mb-8 justify-center gap-2 text-xs pt-4 text-muted-foreground">
                 <Avatar className="w-6 h-6">
                   <AvatarImage
-                    src="https://github.com/Marmo77.png"
-                    alt="Marmo77"
+                    src={AppConstants.Credits.avatar}
+                    alt={AppConstants.Credits.name}
                     className="rounded-xl"
                   />
-                  <AvatarFallback>M77</AvatarFallback>
+                  <AvatarFallback>
+                    {AppConstants.Credits.name.charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
                 <span>
                   by{" "}
                   <span
                     className="font-bold hover:underline cursor-pointer"
                     onClick={() =>
-                      window.open("https://github.com/Marmo77", "_blank")
+                      window.open(AppConstants.Credits.link, "_blank")
                     }
                   >
-                    Marmo77
+                    {AppConstants.Credits.name}
                   </span>
                 </span>
               </div>
