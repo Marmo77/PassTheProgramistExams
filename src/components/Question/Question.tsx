@@ -26,6 +26,7 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import ErrorTestComponent from "../ErrorTestComponent";
+import { AppConstants } from "@/data/constants";
 // { type }: { type: string }
 const Question = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -247,21 +248,23 @@ const Question = () => {
               <div className="flex items-center max-md:mb-8 justify-center gap-2 text-xs pt-4 text-muted-foreground">
                 <Avatar className="w-6 h-6">
                   <AvatarImage
-                    src="https://github.com/Marmo77.png"
-                    alt="Marmo77"
+                    src={AppConstants.Credits.avatar}
+                    alt={AppConstants.Credits.name}
                     className="rounded-xl"
                   />
-                  <AvatarFallback>M77</AvatarFallback>
+                  <AvatarFallback>
+                    {AppConstants.Credits.name.charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
                 <span>
                   by{" "}
                   <span
                     className="font-bold hover:underline cursor-pointer"
                     onClick={() =>
-                      window.open("https://github.com/Marmo77", "_blank")
+                      window.open(AppConstants.Credits.link, "_blank")
                     }
                   >
-                    Marmo77
+                    {AppConstants.Credits.name}
                   </span>
                 </span>
               </div>

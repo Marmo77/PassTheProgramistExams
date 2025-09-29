@@ -11,6 +11,7 @@ import { Button } from "./ui/button";
 import { ChevronLeft, Code, Database } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useNavigate } from "react-router-dom";
+import { AppConstants } from "@/data/constants";
 
 const Theory = () => {
   const navigate = useNavigate();
@@ -113,25 +114,32 @@ const Theory = () => {
       </div>
 
       {/* Credit Avatar */}
-      <div className="flex items-center justify-center mt-12 pt-8 border-t border-border">
-        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-          <Avatar className="w-8 h-8">
-            <AvatarImage src="https://github.com/Marmo77.png" alt="Marmo77" />
-            <AvatarFallback>M</AvatarFallback>
-          </Avatar>
-          <span className="text-sm">
-            Stworzono przez{" "}
-            <Button
-              className="-ml-2"
-              variant="link"
-              onClick={() =>
-                window.open("https://github.com/Marmo77", "_blank")
-              }
-            >
-              Marmo77
-            </Button>
-          </span>
-        </div>
+      <Credits />
+    </div>
+  );
+};
+
+const Credits = () => {
+  return (
+    <div className="flex items-center justify-center mt-12 pt-8 border-t border-border">
+      <div className="flex items-center gap-3 text-sm text-muted-foreground">
+        <Avatar className="w-8 h-8">
+          <AvatarImage
+            src={AppConstants.Credits.avatar}
+            alt={AppConstants.Credits.name}
+          />
+          <AvatarFallback>{AppConstants.Credits.name[0]}</AvatarFallback>
+        </Avatar>
+        <span className="text-sm">
+          Stworzono przez{" "}
+          <Button
+            className="-ml-2"
+            variant="link"
+            onClick={() => window.open(AppConstants.Credits.link, "_blank")}
+          >
+            {AppConstants.Credits.name}
+          </Button>
+        </span>
       </div>
     </div>
   );
