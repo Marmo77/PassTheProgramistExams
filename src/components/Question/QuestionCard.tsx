@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
+import QuestionReport from "./QuestionReport";
 import type { QuestionType } from "@/types/types";
 
 const QuestionCard = ({
@@ -21,12 +22,15 @@ const QuestionCard = ({
   return (
     <Card className="px-3">
       <CardHeader className="">
-        <Badge
-          className="ml-0 px-2 py-1 w-fit"
-          variant={question[0]?.subject === "inf03" ? "destructive" : "default"}
-        >
-          {question[0]?.subject ?? ""}
-        </Badge>
+        <div className="flex items-center justify-between gap-2">
+          <Badge
+            className="ml-0 px-2 py-1 w-fit"
+            variant={question[0]?.subject === "inf03" ? "outline" : "default"}
+          >
+            {question[0]?.subject ?? ""}
+          </Badge>
+          <QuestionReport question={question} questionNumber={questionNumber} />
+        </div>
         <div className="flex py-2">
           <h1 className="text-lg font-medium leading-relaxed">
             {questionNumber}. {question[questionNumber - 1]?.question_text}

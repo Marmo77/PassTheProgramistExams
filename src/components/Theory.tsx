@@ -133,8 +133,8 @@ const ExamCard = ({
       </CardHeader>
       <CardContent>
         <div className="space-y-2 mb-6">
-          {badges.map((item) => (
-            <Badge variant="secondary" className="mr-2">
+          {badges.map((item, idx) => (
+            <Badge variant="secondary" key={idx} className="mr-2">
               {item}
             </Badge>
           ))}
