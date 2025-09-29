@@ -22,10 +22,12 @@ import {
   Check,
   Flag,
   FlagTriangleRight,
+  Loader,
   MessageSquare,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ReportBug } from "@/hooks/ReportBug";
 
 const QuestionReport = ({
   question,
@@ -35,12 +37,17 @@ const QuestionReport = ({
   questionNumber: number;
 }) => {
   const [report, setReport] = useState({
+    question_id: "",
     category: "",
     description: "",
-    question_id: question[questionNumber - 1].id,
-    question_text: question[questionNumber - 1].question_text,
-    subject: question[questionNumber - 1].subject,
   });
+  // Update question_id when questionNumber changes
+  useEffect(() => {
+    setReport((prev) => ({
+      ...prev,
+      question_id: question[questionNumber - 1].id,
+    }));
+  }, [questionNumber]);
 
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,18 +69,30 @@ const QuestionReport = ({
     setReport((prev) => ({ ...prev, description: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Send report to server
+    await ReportBug(report);
     console.log(report);
+
     setTimeout(() => {
-      // TODO: send report to server
       // TODO: show success message (toaster)
       setIsSubmitting(false);
       setIsReportOpen(false);
+      //reset form
+      setReport({
+        category: "",
+        description: "",
+        question_id: "",
+      });
     }, 2000);
   };
-
+  //   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //     e.preventDefault();
+  //     console.log(question[questionNumber - 1].id);
+  //   };
   return (
     <Sheet open={isReportOpen} onOpenChange={setIsReportOpen}>
       <SheetTrigger asChild>
@@ -154,11 +173,22 @@ const QuestionReport = ({
             <div className="flex gap-3 pt-4">
               <Button
                 type="submit"
-                disabled={!report.description || !report.category}
+                disabled={
+                  !report.description || !report.category || isSubmitting
+                }
                 className="flex-1"
               >
-                <Check className="w-4 h-4 mr-2" />
-                Wyślij zgłoszenie
+                {isSubmitting ? (
+                  <>
+                    <Loader className="w-4 h-4 mr-2 animate-spin" />
+                    Wysyłanie zgłoszenia...
+                  </>
+                ) : (
+                  <>
+                    <Check className="w-4 h-4 mr-2" />
+                    Wyślij zgłoszenie
+                  </>
+                )}
               </Button>
               <Button
                 variant="outline"

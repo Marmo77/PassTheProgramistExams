@@ -19,3 +19,9 @@ export type ExamInfo = {
   topics?: string[]; // algorytmy, bazy_danych, itp. - pod SEO
   has_solutions?: boolean;
 };
+
+export type ReportType = {
+  question_id: string;
+  category: string;
+  description: string;
+};
