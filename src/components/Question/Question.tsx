@@ -5,13 +5,10 @@ import { getQuestions } from "@/hooks/getQuestions";
 import type { QuestionType } from "@/types/types";
 import { Button } from "../ui/button";
 import { QuestionResults } from "@/hooks/QuestionResults";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingQuestions from "./LoadingQuestions";
-import { useParams } from "react-router-dom";
-import { ChevronLeft, Clock } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import NoQuestions from "./NoQuestions";
-import { Progress } from "../ui/progress";
 import ProgressNavigation from "./ProgressNavigation";
 import Timer from "./Timer";
 import {
@@ -25,7 +22,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import ErrorTestComponent from "../ErrorTestComponent";
 import { AppConstants } from "@/data/constants";
 // { type }: { type: string }
 const Question = () => {
@@ -220,7 +216,7 @@ const Question = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-6 gap-2">
-                    {question.map((item, idx) => {
+                    {question.map((_, idx) => {
                       const answered =
                         answers[idx] !== null && answers[idx] !== undefined; // Sprawdza czy odpowiedź jest zaznaczona
                       const isCurrent = currentQuestion === idx + 1; // Sprawdza czy jest aktualne pytanie
