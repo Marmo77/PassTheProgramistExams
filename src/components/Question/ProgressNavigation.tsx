@@ -23,10 +23,6 @@ const ProgressNavigation = ({
   question: any[];
   exam_type: string;
 }) => {
-  const navigate = useNavigate();
-  const handleExit = () => {
-    navigate("/");
-  };
   return (
     <div className="max-w-5xl mx-auto max-lg:px-4 max-md:px-2 py-6">
       <div className="flex flex-col">
@@ -35,38 +31,47 @@ const ProgressNavigation = ({
             Pytanie {currentQuestion} z {question.length} •{" "}
             {exam_type.toUpperCase()}
           </span>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-muted-foreground"
-              >
-                <ChevronLeft className="w-4 h-4 mr-1" />
-                Wyjdź
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  Napewno chcesz wyjść z tego egzaminu?
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  Twoje odpowiedzi nie zostaną zapisane.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Anuluj</AlertDialogCancel>
-                <AlertDialogAction onClick={handleExit}>
-                  Wyjdź
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <ConfirmExitDialog
+            title="Napewno chcesz wyjść z tego egzaminu?"
+            description="Twoje odpowiedzi nie zostaną zapisane."
+          />
         </div>
         <Progress value={(currentQuestion / question.length) * 100} />
       </div>
     </div>
+  );
+};
+
+const ConfirmExitDialog = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => {
+  const navigate = useNavigate();
+  const handleExit = () => {
+    navigate("/");
+  };
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline" size="sm" className="text-muted-foreground">
+          <ChevronLeft className="w-4 h-4 mr-1" />
+          Wyjdź
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Anuluj</AlertDialogCancel>
+          <AlertDialogAction onClick={handleExit}>Wyjdź</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

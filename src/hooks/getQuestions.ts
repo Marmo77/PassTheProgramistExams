@@ -23,3 +23,5 @@ export const getRandomQuestions = async (
   return limited;
   // return data;
 };
+
+// https://zawodowe.edu.pl/technik-informatyk/INF.03/ scrape to database
