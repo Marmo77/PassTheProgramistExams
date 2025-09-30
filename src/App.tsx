@@ -7,6 +7,7 @@ import { MoveB } from "./components/MoveB";
 import Question from "./components/Question/Question";
 import ResultsPage from "./components/ResultsPage";
 import Theory from "./components/Theory";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [examInfo, setExamInfo] = useState<Exam[]>([]);
@@ -23,6 +24,7 @@ function App() {
           element={<SeeData examInfo={examInfo} setExamInfo={setExamInfo} />}
         />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
