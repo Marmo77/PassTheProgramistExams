@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import QuestionCard from "./QuestionCard";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import { getQuestions } from "@/hooks/getQuestions";
+import { getRandomQuestions } from "@/hooks/getQuestions";
 import type { QuestionType } from "@/types/types";
 import { Button } from "../ui/button";
 import { QuestionResults } from "@/hooks/QuestionResults";
@@ -46,7 +46,7 @@ const Question = () => {
 
   useEffect(() => {
     // console.log("typ pytań: ", type);
-    getQuestions(exam_type, 10)
+    getRandomQuestions(exam_type, 40)
       .then((res) => {
         // Pobieranie X pytań z Bazy Danych
         const q = res as QuestionType[];
@@ -60,9 +60,9 @@ const Question = () => {
         console.error("Failed to load questions", e);
       })
       .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1300);
+        // setTimeout(() => {
+        setIsLoading(false);
+        // }, 1000);
       });
     // console.log("load", isLoading);
   }, [exam_type]);
@@ -241,7 +241,7 @@ const Question = () => {
                 </CardContent>
               </Card>
               {/* Credit Avatar */}
-              <div className="flex items-center max-md:mb-8 justify-center gap-2 text-xs pt-4 text-muted-foreground">
+              <div className="flex items-center mb-8 justify-center gap-2 text-xs pt-4 text-muted-foreground">
                 <Avatar className="w-6 h-6">
                   <AvatarImage
                     src={AppConstants.Credits.avatar}

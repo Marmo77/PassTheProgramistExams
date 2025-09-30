@@ -8,15 +8,35 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { ChevronLeft, Code, Database } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useNavigate } from "react-router-dom";
 import { AppConstants } from "@/data/constants";
+import { memo, useState, useEffect, lazy, Suspense } from "react";
+
+// lazy load avatar
+const Avatar = lazy(() =>
+  import("@/components/ui/avatar").then((m) => ({ default: m.Avatar }))
+);
+const AvatarFallback = lazy(() =>
+  import("@/components/ui/avatar").then((m) => ({ default: m.AvatarFallback }))
+);
+const AvatarImage = lazy(() =>
+  import("@/components/ui/avatar").then((m) => ({ default: m.AvatarImage }))
+);
 
 const Theory = () => {
   const navigate = useNavigate();
   const onBackToHome = () => {
     navigate("/");
   };
+
+  const [showCredits, setShowCredits] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCredits(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -57,10 +77,75 @@ const Theory = () => {
       </div>
 
       {/* Credit Avatar */}
-      <Credits />
+      {showCredits && (
+        <Suspense fallback={<div className="h-20" />}>
+          <Credits />
+        </Suspense>
+      )}
     </div>
   );
 };
+
+const ExamCard = memo(
+  ({
+    subject,
+    title,
+    badges,
+    description,
+    Icon,
+    icon_color,
+  }: {
+    subject: string;
+    title: string;
+    badges: string[];
+    description: string;
+    Icon?: React.ElementType;
+    icon_color?: string;
+  }) => {
+    const navigate = useNavigate();
+
+    const handleSubjectSelect = (subject: string) => {
+      navigate(`/theory/${subject}`);
+    };
+
+    return (
+      <Card
+        className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
+        onClick={() => handleSubjectSelect(subject)}
+      >
+        <CardHeader className="text-center pb-4">
+          <div
+            className={`bg-${icon_color}-100 dark:bg-${icon_color}-900/20 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4`}
+          >
+            {Icon ? (
+              <Icon className={`w-8 h-8`} style={{ color: icon_color }} />
+            ) : (
+              <Database className={`w-8 h-8`} style={{ color: icon_color }} />
+            )}
+          </div>
+          {/* INF.04 */}
+          <CardTitle className="text-2xl">{title}</CardTitle>
+          <CardDescription className="text-lg">
+            {description}
+            {/* Projektowanie i programowanie aplikacji desktopowych i mobilnych */}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2 mb-6">
+            {badges.map((item, idx) => (
+              <Badge variant="secondary" key={idx} className="mr-2">
+                {item}
+              </Badge>
+            ))}
+          </div>
+          <Button className="w-full" size="lg">
+            Rozpocznij test {title}
+          </Button>
+        </CardContent>
+      </Card>
+    );
+  }
+);
 
 const Credits = () => {
   return (
@@ -70,6 +155,7 @@ const Credits = () => {
           <AvatarImage
             src={AppConstants.Credits.avatar}
             alt={AppConstants.Credits.name}
+            loading="lazy"
           />
           <AvatarFallback>{AppConstants.Credits.name[0]}</AvatarFallback>
         </Avatar>
@@ -88,63 +174,4 @@ const Credits = () => {
   );
 };
 
-const ExamCard = ({
-  subject,
-  title,
-  badges,
-  description,
-  Icon,
-  icon_color,
-}: {
-  subject: string;
-  title: string;
-  badges: string[];
-  description: string;
-  Icon?: React.ElementType;
-  icon_color?: string;
-}) => {
-  const navigate = useNavigate();
-
-  const handleSubjectSelect = (subject: string) => {
-    navigate(`/theory/${subject}`);
-  };
-
-  return (
-    <Card
-      className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
-      onClick={() => handleSubjectSelect(subject)}
-    >
-      <CardHeader className="text-center pb-4">
-        <div
-          className={`w-16 h-16 bg-${icon_color}-100 dark:bg-${icon_color}-900/20 rounded-full flex items-center justify-center mx-auto mb-4`}
-        >
-          {Icon ? (
-            <Icon className={`w-8 h-8`} style={{ color: icon_color }} />
-          ) : (
-            <Database className={`w-8 h-8`} style={{ color: icon_color }} />
-          )}
-        </div>
-        {/* INF.04 */}
-        <CardTitle className="text-2xl">{title}</CardTitle>
-        <CardDescription className="text-lg">
-          {description}
-          {/* Projektowanie i programowanie aplikacji desktopowych i mobilnych */}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-2 mb-6">
-          {badges.map((item, idx) => (
-            <Badge variant="secondary" key={idx} className="mr-2">
-              {item}
-            </Badge>
-          ))}
-        </div>
-        <Button className="w-full" size="lg">
-          Rozpocznij test {title}
-        </Button>
-      </CardContent>
-    </Card>
-  );
-};
-
-export default Theory;
+export default memo(Theory);
