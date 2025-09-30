@@ -17,14 +17,16 @@ const Footer = () => {
                   © {new Date().getFullYear()}{" "}
                   <a
                     href={`https://${AppConstants.Website.link}`}
-                    className="hover:text-primary"
+                    className="hover:text-primary text-primary/85"
                     target="_blank"
                   >
                     {AppConstants.Website.link}
-                  </a>{" "}
-                  by{" "}
+                  </a>
+                  . Wszystkie prawa zastrzeżone.
+                  {/* by{" "} */}
                 </span>
-                <Button
+                {/* by Credits */}
+                {/* <Button
                   variant="link"
                   onClick={() =>
                     window.open(AppConstants.Credits.link, "_blank")
@@ -33,7 +35,7 @@ const Footer = () => {
                   aria-label="GitHub"
                 >
                   {AppConstants.Credits.name}
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>
