@@ -60,9 +60,9 @@ const Question = () => {
         console.error("Failed to load questions", e);
       })
       .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1300);
+        // setTimeout(() => {
+        setIsLoading(false);
+        // }, 1300);
       });
     // console.log("load", isLoading);
   }, [exam_type]);

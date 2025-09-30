@@ -89,10 +89,6 @@ const QuestionReport = ({
       });
     }, 2000);
   };
-  //   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //     e.preventDefault();
-  //     console.log(question[questionNumber - 1].id);
-  //   };
   return (
     <Sheet open={isReportOpen} onOpenChange={setIsReportOpen}>
       <SheetTrigger asChild>
