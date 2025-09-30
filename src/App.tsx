@@ -11,7 +11,6 @@ import NotFound from "./components/NotFound";
 
 function App() {
   const [examInfo, setExamInfo] = useState<Exam[]>([]);
-
   return (
     <Routes>
       <Route element={<Layout />}>
