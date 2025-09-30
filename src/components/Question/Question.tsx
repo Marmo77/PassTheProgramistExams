@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import QuestionCard from "./QuestionCard";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import { getQuestions } from "@/hooks/getQuestions";
+import { getRandomQuestions } from "@/hooks/getQuestions";
 import type { QuestionType } from "@/types/types";
 import { Button } from "../ui/button";
 import { QuestionResults } from "@/hooks/QuestionResults";
@@ -46,7 +46,7 @@ const Question = () => {
 
   useEffect(() => {
     // console.log("typ pytań: ", type);
-    getQuestions(exam_type, 10)
+    getRandomQuestions(exam_type, 40)
       .then((res) => {
         // Pobieranie X pytań z Bazy Danych
         const q = res as QuestionType[];
@@ -62,7 +62,7 @@ const Question = () => {
       .finally(() => {
         // setTimeout(() => {
         setIsLoading(false);
-        // }, 1300);
+        // }, 1000);
       });
     // console.log("load", isLoading);
   }, [exam_type]);

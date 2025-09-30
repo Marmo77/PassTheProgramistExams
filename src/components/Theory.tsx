@@ -8,7 +8,6 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { ChevronLeft, Code, Database } from "lucide-react";
-// import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useNavigate } from "react-router-dom";
 import { AppConstants } from "@/data/constants";
 import { memo, useState, useEffect, lazy, Suspense } from "react";
@@ -87,33 +86,6 @@ const Theory = () => {
   );
 };
 
-const Credits = () => {
-  return (
-    <div className="flex items-center justify-center mt-12 pt-8 border-t border-border">
-      <div className="flex items-center gap-3 text-sm text-muted-foreground">
-        <Avatar className="w-8 h-8">
-          <AvatarImage
-            src={AppConstants.Credits.avatar}
-            alt={AppConstants.Credits.name}
-            loading="lazy"
-          />
-          <AvatarFallback>{AppConstants.Credits.name[0]}</AvatarFallback>
-        </Avatar>
-        <span className="text-sm">
-          Stworzono przez{" "}
-          <Button
-            className="-ml-2"
-            variant="link"
-            onClick={() => window.open(AppConstants.Credits.link, "_blank")}
-          >
-            {AppConstants.Credits.name}
-          </Button>
-        </span>
-      </div>
-    </div>
-  );
-};
-
 const ExamCard = memo(
   ({
     subject,
@@ -136,10 +108,6 @@ const ExamCard = memo(
       navigate(`/theory/${subject}`);
     };
 
-    const bgColor = icon_color
-      ? `bg-${icon_color}-100 dark:bg-${icon_color}-900/20`
-      : "bg-primary-100 dark:bg-primary-900/20";
-
     return (
       <Card
         className="cursor-pointer hover:shadow-lg transition-all duration-200 border-2 hover:border-primary/20"
@@ -147,7 +115,7 @@ const ExamCard = memo(
       >
         <CardHeader className="text-center pb-4">
           <div
-            className={`${bgColor} rounded-full flex items-center justify-center mx-auto mb-4`}
+            className={`bg-${icon_color}-100 dark:bg-${icon_color}-900/20 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4`}
           >
             {Icon ? (
               <Icon className={`w-8 h-8`} style={{ color: icon_color }} />
@@ -178,5 +146,32 @@ const ExamCard = memo(
     );
   }
 );
+
+const Credits = () => {
+  return (
+    <div className="flex items-center justify-center mt-12 pt-8 border-t border-border">
+      <div className="flex items-center gap-3 text-sm text-muted-foreground">
+        <Avatar className="w-8 h-8">
+          <AvatarImage
+            src={AppConstants.Credits.avatar}
+            alt={AppConstants.Credits.name}
+            loading="lazy"
+          />
+          <AvatarFallback>{AppConstants.Credits.name[0]}</AvatarFallback>
+        </Avatar>
+        <span className="text-sm">
+          Stworzono przez{" "}
+          <Button
+            className="-ml-2"
+            variant="link"
+            onClick={() => window.open(AppConstants.Credits.link, "_blank")}
+          >
+            {AppConstants.Credits.name}
+          </Button>
+        </span>
+      </div>
+    </div>
+  );
+};
 
 export default memo(Theory);
