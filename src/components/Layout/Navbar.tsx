@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { AppConstants } from "@/data/constants";
 
 export default function Navbar() {
   return (
@@ -9,10 +10,12 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <Link to={"/"}>
-            <h1 className="text-xl font-semibold">Pass the Exam</h1>
+            <h1 className="text-xl font-semibold">
+              {AppConstants.Website.Title}
+            </h1>
           </Link>
           <Badge variant="secondary" className="hidden sm:inline-flex">
-            v1.0
+            v{AppConstants.Website.version}
           </Badge>
         </div>
 
