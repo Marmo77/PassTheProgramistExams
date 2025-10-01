@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ReportBug } from "@/hooks/ReportBug";
+import { toast } from "sonner";
 
 const QuestionReport = ({
   question,
@@ -78,7 +79,6 @@ const QuestionReport = ({
     console.log(report);
 
     setTimeout(() => {
-      // TODO: show success message (toaster)
       setIsSubmitting(false);
       setIsReportOpen(false);
       //reset form
@@ -86,6 +86,12 @@ const QuestionReport = ({
         category: "",
         description: "",
         question_id: "",
+      });
+      // Show toast
+      toast.success("Twoje zgłoszenie zostało wysłane!", {
+        duration: 5000,
+        position: "top-right",
+        richColors: true,
       });
     }, 2000);
   };
