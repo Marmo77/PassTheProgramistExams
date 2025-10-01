@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import ResultsCard from "./Question/ResultsCard";
+import ResultsCard from "./Theory/ResultsCard";
 import type { QuestionType } from "@/types/types";
 import type { QuestionEvaluation } from "@/hooks/QuestionResults";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "./ui/button";
-import NoResults from "./Question/NoResults";
+import NoResults from "./Theory/NoResults";
 
 type PersistedResults = {
   results: QuestionEvaluation[];
