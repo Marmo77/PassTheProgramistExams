@@ -21,30 +21,30 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <a
-            href="/theory"
+          <Link
+            to={AppConstants.Navigation.Theory}
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Teoria
-          </a>
-          <a
-            href="/exams"
+          </Link>
+          <Link
+            to={AppConstants.Navigation.Practice}
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Praktyka
-          </a>
-          <a
-            href="#arkusze"
+          </Link>
+          <Link
+            to="#arkusze"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Arkusze
-          </a>
-          <a
-            href="#about"
+          </Link>
+          <Link
+            to="#about"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             O nas
-          </a>
+          </Link>
         </nav>
 
         {/* CTA Button */}

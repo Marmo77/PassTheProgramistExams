@@ -10,4 +10,10 @@ export const AppConstants = {
     github: "https://github.com/Marmo77/zdajprogramiste",
     version: "1.0",
   },
+  Navigation: {
+    Home: "/",
+    Theory: "/theory",
+    Practice: "/practice",
+    TheoryResults: "/theory/results",
+  },
 };
