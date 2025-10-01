@@ -10,12 +10,13 @@ import {
 import { Link } from "react-router-dom";
 import { AppConstants } from "@/data/constants";
 import { Home } from "lucide-react";
+import PracticeCard from "./Practice/PracticeCard";
 
 const Practice = () => {
   return (
-    <div className="max-w-4xl mx-auto py-8 px-6">
-      <BreadCrumbs />
-      <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="flex flex-col min-h-screen">
+      <div className="max-w-4xl mx-auto py-12">
+        <BreadCrumbs />
         <div className="text-center mb-12">
           <h1 className="text-4xl font-semibold text-foreground mb-4">
             Wybierz kwalifikację egzaminacyjną
@@ -25,6 +26,10 @@ const Practice = () => {
             losowych pytań i trwa 60 minut.
           </p>
         </div>
+        <div className="grid grid-cols-2 gap-4">
+          <PracticeCard isDone={false} />
+          <PracticeCard isDone={true} />
+        </div>
       </div>
     </div>
   );
@@ -32,12 +37,17 @@ const Practice = () => {
 
 const BreadCrumbs = () => {
   return (
-    <Breadcrumb>
+    <Breadcrumb className="mb-4">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Home className="w-6 h-6" />
-            <Link to={AppConstants.Navigation.Home}>Home</Link>
+            <Link
+              to={AppConstants.Navigation.Home}
+              className="flex gap-2 items-center"
+            >
+              <Home className="w-4 h-4" />
+              Home
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
