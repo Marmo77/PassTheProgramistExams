@@ -1,66 +1,103 @@
+// src/components/Practice.tsx
 import React, { useEffect, useState } from "react";
+import { getFilteredExams } from "@/hooks/getExams";
+import type { ExamType } from "@/types/types";
+import PracticeCard from "./Practice/PracticeCard";
+import PracticeFilters from "./Practice/PracticeFilters";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbSeparator,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "./ui/breadcrumb";
 import { Link } from "react-router-dom";
 import { AppConstants } from "@/data/constants";
-import { Home, Loader2 } from "lucide-react";
-import PracticeCard from "./Practice/PracticeCard";
-import { getExams } from "@/hooks/getExams";
-import type { ExamType } from "@/types/types";
-import PracticeFilters from "./Practice/PracticeFilters";
+import { Home } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
+
+export type FilterOptions = {
+  search: string;
+  subject: string;
+  technologies: string;
+  sort: string;
+  year: string;
+};
 
 const Practice = () => {
   const [exams, setExams] = useState<ExamType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  console.log(exams);
+  const [filters, setFilters] = useState<FilterOptions>({
+    search: "",
+    subject: "all",
+    technologies: "all",
+    sort: "newest",
+    year: "all",
+  });
 
   useEffect(() => {
     const fetchExams = async () => {
+      setIsLoading(true);
       try {
-        const exams = await getExams();
+        const exams = await getFilteredExams(filters);
         setExams(exams as ExamType[]);
       } catch (error) {
         console.error(error);
       } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
+        setIsLoading(false);
       }
     };
-    fetchExams();
-  }, []);
+
+    // Debounce search - żeby nie szukało odrazu po wpisaniu literki
+    const timeoutId = setTimeout(
+      () => {
+        fetchExams();
+      },
+      filters.search.length > 0 && filters.search.length < 3 ? 0 : 500
+    );
+
+    return () => clearTimeout(timeoutId);
+  }, [filters]);
+
+  const handleFilterChange = (key: keyof FilterOptions, value: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
   return (
-    <section className="flex flex-col max-w-6xl mx-auto min-h-screen max-lg:px-8 ">
+    <section className="flex flex-col max-w-6xl mx-auto min-h-screen max-lg:px-8">
       <div className="py-12">
         <BreadCrumbs />
         <div className="text-center mb-12">
           <h1 className="text-4xl font-semibold text-foreground mb-4">
-            Wybierz kwalifikację egzaminacyjną
+            Arkusze egzaminacyjne
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Rozpocznij test teoretyczny z wybranej kwalifikacji. Test zawiera 40
-            losowych pytań i trwa 60 minut.
+            Przeglądaj i filtruj poprzednie egzaminy praktyczne z wybranej
+            kwalifikacji.
           </p>
         </div>
-        <PracticeFilters />
-        <div
-          className={`grid justify-center max-lg:grid-cols-2 max-md:grid-cols-1 grid-cols-3 gap-4`}
-        >
+
+        <PracticeFilters
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
+
+        <div className="grid justify-center max-lg:grid-cols-2 max-md:grid-cols-1 grid-cols-3 gap-4">
           {isLoading ? (
             <>
               <PracticeSkeletonCard />
               <PracticeSkeletonCard />
               <PracticeSkeletonCard />
             </>
+          ) : exams.length === 0 ? (
+            <div className="col-span-full text-center py-12 text-muted-foreground">
+              Nie znaleziono egzaminów spełniających kryteria wyszukiwania
+            </div>
           ) : (
             exams.map((exam) => (
               <PracticeCard key={exam.id} isDone={false} exam={exam} />
