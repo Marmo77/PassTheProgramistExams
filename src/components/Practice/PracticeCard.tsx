@@ -162,7 +162,7 @@ const PracticeCard = ({
             ))}
           </div>
           {/* ACTION BUTTONS */}
-          <div className="grid grid-cols-2 items-center gap-2">
+          <div className="grid grid-cols-2 max-lg:grid-cols-1 items-center gap-2">
             <Link to={"/practice/arkusz"}>
               <Button
                 size="sm"
@@ -173,17 +173,27 @@ const PracticeCard = ({
                 Arkusz
               </Button>
             </Link>
-            <Link to={"/practice/rozwiązanie"}>
+            {!exam.has_solution ? (
               <Button
                 size="sm"
                 variant="actionButton"
-                disabled={!exam.has_solution}
-                className={`w-full ${ActiveLinks[0].Solutions.bg} ${ActiveLinks[0].Solutions.text} ${ActiveLinks[0].Solutions.border}`}
+                className={`w-full cursor-not-allowed opacity-45 ${ActiveLinks[0].Solutions.bg} ${ActiveLinks[0].Solutions.text} ${ActiveLinks[0].Solutions.border}`}
               >
                 <FileText className="w-4 h-4 mr-1" />
                 Rozwiązanie
               </Button>
-            </Link>
+            ) : (
+              <Link to={"/practice/rozwiązanie"}>
+                <Button
+                  size="sm"
+                  variant="actionButton"
+                  className={`w-full ${ActiveLinks[0].Solutions.bg} ${ActiveLinks[0].Solutions.text} ${ActiveLinks[0].Solutions.border}`}
+                >
+                  <FileText className="w-4 h-4 mr-1" />
+                  Rozwiązanie
+                </Button>
+              </Link>
+            )}
 
             <Link to={"/practice/zip"}>
               <Button

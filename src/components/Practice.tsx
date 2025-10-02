@@ -37,7 +37,7 @@ const Practice = () => {
     fetchExams();
   }, []);
   return (
-    <section className="flex flex-col max-w-6xl mx-auto min-h-screen">
+    <section className="flex flex-col max-w-6xl mx-auto min-h-screen max-lg:px-8 ">
       <div className="py-12">
         <BreadCrumbs />
         <div className="text-center mb-12">
