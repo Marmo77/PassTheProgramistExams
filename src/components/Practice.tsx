@@ -14,9 +14,10 @@ import {
 } from "./ui/breadcrumb";
 import { Link } from "react-router-dom";
 import { AppConstants } from "@/data/constants";
-import { Home } from "lucide-react";
+import { ChevronLeft, ChevronRight, Home } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
+import { Button } from "./ui/button";
 
 export type FilterOptions = {
   search: string;
@@ -29,19 +30,20 @@ export type FilterOptions = {
 const Practice = () => {
   const [exams, setExams] = useState<ExamType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [filters, setFilters] = useState<FilterOptions>({
     search: "",
-    subject: "all",
-    technologies: "all",
-    sort: "newest",
-    year: "all",
+    subject: "",
+    technologies: "",
+    sort: "",
+    year: "",
   });
 
   useEffect(() => {
     const fetchExams = async () => {
       setIsLoading(true);
       try {
-        const exams = await getFilteredExams(filters);
+        const exams = await getFilteredExams(filters, currentPage);
         setExams(exams as ExamType[]);
       } catch (error) {
         console.error(error);
@@ -59,13 +61,18 @@ const Practice = () => {
     );
 
     return () => clearTimeout(timeoutId);
-  }, [filters]);
+  }, [filters, currentPage]);
 
   const handleFilterChange = (key: keyof FilterOptions, value: string) => {
     setFilters((prev) => ({
       ...prev,
       [key]: value,
     }));
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    console.log("Strona", page);
   };
 
   return (
@@ -86,6 +93,29 @@ const Practice = () => {
           filters={filters}
           onFilterChange={handleFilterChange}
         />
+        <div className="flex max-w-6xl mx-auto justify-center mt-4 mb-12">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Poprzednia
+          </Button>
+          <span className="text-muted-foreground self-center mx-4">
+            Strona {currentPage}
+          </span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Następna
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
 
         <div className="grid justify-center max-lg:grid-cols-2 max-md:grid-cols-1 grid-cols-3 gap-4">
           {isLoading ? (

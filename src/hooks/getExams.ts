@@ -18,8 +18,16 @@ import type { FilterOptions } from "@/components/Practice";
 //   return data;
 // };
 
-export const getFilteredExams = async (filters: FilterOptions) => {
-  let query = supabase.from("exams").select("*").limit(9);
+export const getFilteredExams = async (
+  filters: FilterOptions,
+  page: number,
+  limit: number = 9
+) => {
+  let query = supabase.from("exams").select("*");
+
+  if (page > 1) {
+    query = query.range((page - 1) * limit, page * limit - 1);
+  }
 
   // Subject filter
   if (filters.subject && filters.subject !== "all") {
