@@ -49,7 +49,6 @@ const Theory = () => {
           losowych pytań i trwa 60 minut.
         </p>
       </div>
-
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <ExamCard
           subject="inf03"
@@ -68,20 +67,18 @@ const Theory = () => {
           icon_color="green"
         />
       </div>
-
       <div className="text-center">
         <Button variant="outline" onClick={onBackToHome} className="px-8">
           <ChevronLeft className="w-4 h-4 mr-2" />
           Powrót do Strony Głównej
         </Button>
       </div>
-
       {/* Credit Avatar */}
-      {showCredits && (
-        <Suspense fallback={<div className="h-20" />}>
-          <Credits />
-        </Suspense>
-      )}
+      {/*</div>{showCredits && (
+        <Suspense fallback={<div className="h-20" />}> */}
+      <Credits /> {/* For faster loading suspense */}
+      {/* </Suspense> } 
+      )} */}
     </div>
   );
 };
@@ -147,7 +144,7 @@ const ExamCard = memo(
   }
 );
 
-const Credits = () => {
+const Credits = memo(() => {
   return (
     <div className="flex items-center justify-center mt-12 pt-8 border-t border-border">
       <div className="flex items-center gap-3 text-sm text-muted-foreground">
@@ -172,6 +169,6 @@ const Credits = () => {
       </div>
     </div>
   );
-};
+});
 
 export default memo(Theory);

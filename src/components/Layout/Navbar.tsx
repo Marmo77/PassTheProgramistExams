@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { AppConstants } from "@/data/constants";
 
 export default function Navbar() {
   return (
@@ -9,39 +10,41 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <Link to={"/"}>
-            <h1 className="text-xl font-semibold">Pass the Exam</h1>
+            <h1 className="text-xl font-semibold">
+              {AppConstants.Website.Title}
+            </h1>
           </Link>
           <Badge variant="secondary" className="hidden sm:inline-flex">
-            v1.0
+            v{AppConstants.Website.version}
           </Badge>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <a
-            href="/theory"
+          <Link
+            to={AppConstants.Navigation.Theory}
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Teoria
-          </a>
-          <a
-            href="/exams"
+          </Link>
+          <Link
+            to={AppConstants.Navigation.Practice}
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Praktyka
-          </a>
-          <a
-            href="#arkusze"
+          </Link>
+          <Link
+            to="#arkusze"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Arkusze
-          </a>
-          <a
-            href="#about"
+          </Link>
+          <Link
+            to="#about"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             O nas
-          </a>
+          </Link>
         </nav>
 
         {/* CTA Button */}

@@ -4,11 +4,13 @@ import "./index.css";
 import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ErrorBoundary>
       <BrowserRouter>
+        <Toaster /> {/* https://sonner.emilkowal.ski/ */}
         <App />
       </BrowserRouter>
     </ErrorBoundary>
