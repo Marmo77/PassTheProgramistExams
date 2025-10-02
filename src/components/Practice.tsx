@@ -47,19 +47,17 @@ const Practice = () => {
             Rozpocznij test teoretyczny z wybranej kwalifikacji. Test zawiera 40
             losowych pytań i trwa 60 minut.
           </p>
-          <div className="w-70 h-70 bg-red-300 flex flex-col gap-2">
-            {isLoading ? (
-              <div className="w-full h-full flex items-center justify-center">
-                <Loader2 className="w-12 h-12 animate-spin" />
-              </div>
-            ) : (
-              exams.map((exam) => <div key={exam.id}>{exam.title}</div>)
-            )}
-          </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <PracticeCard isDone={false} exams={exams} />
-          <PracticeCard isDone={true} exams={exams} />
+          {isLoading ? (
+            <div className="w-full h-full flex items-center justify-center">
+              <Loader2 className="w-12 h-12 animate-spin" />
+            </div>
+          ) : (
+            exams.map((exam) => (
+              <PracticeCard key={exam.id} isDone={false} exam={exam} />
+            ))
+          )}
         </div>
       </div>
     </div>
