@@ -14,10 +14,10 @@ import {
 } from "./ui/breadcrumb";
 import { Link } from "react-router-dom";
 import { AppConstants } from "@/data/constants";
-import { ChevronLeft, ChevronRight, Home } from "lucide-react";
+import { Home } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
-import { Button } from "./ui/button";
+import PaginationPractice from "./Practice/Pagination";
 
 export type FilterOptions = {
   search: string;
@@ -79,6 +79,7 @@ const Practice = () => {
   };
 
   const handlePageChange = (page: number) => {
+    if (page < 1 || page > Math.ceil(totalExams / limit)) return;
     setCurrentPage(page);
   };
 
@@ -100,29 +101,12 @@ const Practice = () => {
           filters={filters}
           onFilterChange={handleFilterChange}
         />
-        <div className="flex max-w-6xl mx-auto justify-center mt-4 mb-12">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage <= 1}
-          >
-            <ChevronLeft className="h-4 w-4" />
-            Poprzednia
-          </Button>
-          <span className="text-muted-foreground self-center mx-4">
-            Strona {currentPage}
-          </span>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage >= Math.ceil(totalExams / limit)}
-          >
-            Następna
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
+        <PaginationPractice
+          currentPage={currentPage}
+          totalExams={totalExams}
+          limit={limit}
+          handlePageChange={handlePageChange}
+        />
 
         <div className="grid justify-center max-lg:grid-cols-2 max-md:grid-cols-1 grid-cols-3 gap-4">
           {isLoading ? (
@@ -141,6 +125,12 @@ const Practice = () => {
             ))
           )}
         </div>
+        <PaginationPractice
+          currentPage={currentPage}
+          totalExams={totalExams}
+          limit={limit}
+          handlePageChange={handlePageChange}
+        />
       </div>
     </section>
   );
