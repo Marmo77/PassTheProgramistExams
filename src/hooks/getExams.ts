@@ -22,8 +22,8 @@ export const getFilteredExams = async (
   filters: FilterOptions,
   page: number,
   limit: number = 9
-) => {
-  let query = supabase.from("exams").select("*");
+): Promise<{ data: ExamType[]; count: number }> => {
+  let query = supabase.from("exams").select("*", { count: "exact" });
 
   if (page > 0) {
     query = query.range((page - 1) * limit, page * limit - 1);
@@ -65,14 +65,14 @@ export const getFilteredExams = async (
       query = query.order("year", { ascending: false });
   }
 
-  const { data, error } = await query;
+  const { data, error, count } = await query;
 
   if (error) {
     console.error("Error fetching filtered exams:", error);
-    return [];
+    return { data: [], count: 0 };
   }
 
-  return data as ExamType[];
+  return { data: data as ExamType[], count: count ?? 0 };
 };
 
 // Keep your original getExams for backward compatibility
@@ -90,8 +90,8 @@ export const getExams = async (subject?: string) => {
 
   if (error) {
     console.error("Error fetching exams:", error);
-    return [];
+    return { data: [], count: 0 };
   }
 
-  return data as ExamType[];
+  return { data };
 };

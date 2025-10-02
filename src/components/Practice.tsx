@@ -31,6 +31,8 @@ const Practice = () => {
   const [exams, setExams] = useState<ExamType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalExams, setTotalExams] = useState<number>(0);
+  const limit = 9;
   const [filters, setFilters] = useState<FilterOptions>({
     search: "",
     subject: "",
@@ -39,14 +41,17 @@ const Practice = () => {
     year: "",
   });
 
-  const onPageCards = exams.length; // if exams.length is > 9 then disabled next button
-
   useEffect(() => {
     const fetchExams = async () => {
       setIsLoading(true);
       try {
-        const exams = await getFilteredExams(filters, currentPage);
-        setExams(exams as ExamType[]);
+        const { data, count } = await getFilteredExams(
+          filters,
+          currentPage,
+          limit
+        );
+        setExams(data as ExamType[]);
+        setTotalExams(count);
       } catch (error) {
         console.error(error);
       } finally {
@@ -65,17 +70,12 @@ const Practice = () => {
     return () => clearTimeout(timeoutId);
   }, [filters, currentPage]);
 
-  // useEffect(() => {
-  //   if (onPageCards == 0) {
-  //     setCurrentPage(onPageCards - 1);
-  //   }
-  // }, [onPageCards]);
-
   const handleFilterChange = (key: keyof FilterOptions, value: string) => {
     setFilters((prev) => ({
       ...prev,
       [key]: value,
     }));
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page: number) => {
@@ -117,7 +117,7 @@ const Practice = () => {
             variant="outline"
             size="sm"
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={onPageCards < 9}
+            disabled={currentPage >= Math.ceil(totalExams / limit)}
           >
             Następna
             <ChevronRight className="h-4 w-4" />
