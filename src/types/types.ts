@@ -9,15 +9,18 @@ export type QuestionType = {
   answer_d: string;
   explanation?: string;
 };
-export type ExamInfo = {
+
+export type ExamType = {
   id: string;
   title: string;
-  description: string;
-  subject: string; // inf03 | inf04
-  session: string; // styczeń | czerwiec
-  year: number; // 2024, etc.
-  topics?: string[]; // algorytmy, bazy_danych, itp. - pod SEO
-  has_solutions?: boolean;
+  description?: string;
+  subject: string; // 'inf03' | 'inf04'
+  session: string; // 'styczeń' | 'maj' | 'czerwiec' | 'sierpień'
+  year: number;
+  links?: string[]; // This is TEXT in your database, not string[]
+  has_solution?: boolean;
+  technologies?: string[];
+  created_at?: string;
 };
 
 export type ReportType = {
