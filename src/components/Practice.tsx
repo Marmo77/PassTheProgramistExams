@@ -37,8 +37,8 @@ const Practice = () => {
     fetchExams();
   }, []);
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="max-w-6xl mx-auto py-12">
+    <section className="flex flex-col max-w-6xl mx-auto min-h-screen">
+      <div className="py-12">
         <BreadCrumbs />
         <div className="text-center mb-12">
           <h1 className="text-4xl font-semibold text-foreground mb-4">
@@ -50,10 +50,12 @@ const Practice = () => {
           </p>
         </div>
         <PracticeFilters />
-        <div className="grid grid-cols-3 gap-4">
+        <div
+          className={`grid justify-center max-lg:grid-cols-2 max-md:grid-cols-1 grid-cols-3 gap-4`}
+        >
           {isLoading ? (
-            <div className="w-full h-full flex items-center justify-center">
-              <Loader2 className="w-12 h-12 animate-spin" />
+            <div className="mt-12 col-span-3 mx-auto">
+              <Loader2 className="w-16 h-16 animate-spin" />
             </div>
           ) : (
             exams.map((exam) => (
@@ -62,7 +64,7 @@ const Practice = () => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
