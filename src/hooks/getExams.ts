@@ -25,7 +25,7 @@ export const getFilteredExams = async (
 ) => {
   let query = supabase.from("exams").select("*");
 
-  if (page > 1) {
+  if (page > 0) {
     query = query.range((page - 1) * limit, page * limit - 1);
   }
 

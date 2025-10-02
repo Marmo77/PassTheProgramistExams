@@ -39,6 +39,8 @@ const Practice = () => {
     year: "",
   });
 
+  const onPageCards = exams.length; // if exams.length is > 9 then disabled next button
+
   useEffect(() => {
     const fetchExams = async () => {
       setIsLoading(true);
@@ -63,6 +65,12 @@ const Practice = () => {
     return () => clearTimeout(timeoutId);
   }, [filters, currentPage]);
 
+  // useEffect(() => {
+  //   if (onPageCards == 0) {
+  //     setCurrentPage(onPageCards - 1);
+  //   }
+  // }, [onPageCards]);
+
   const handleFilterChange = (key: keyof FilterOptions, value: string) => {
     setFilters((prev) => ({
       ...prev,
@@ -72,7 +80,6 @@ const Practice = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    console.log("Strona", page);
   };
 
   return (
@@ -98,7 +105,7 @@ const Practice = () => {
             variant="outline"
             size="sm"
             onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
+            disabled={currentPage <= 1}
           >
             <ChevronLeft className="h-4 w-4" />
             Poprzednia
@@ -110,7 +117,7 @@ const Practice = () => {
             variant="outline"
             size="sm"
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
+            disabled={onPageCards < 9}
           >
             Następna
             <ChevronRight className="h-4 w-4" />
