@@ -159,3 +159,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+body{
+  scroll-behavior: smooth;
+}
