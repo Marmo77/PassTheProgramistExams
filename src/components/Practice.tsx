@@ -13,6 +13,7 @@ import { Home, Loader2 } from "lucide-react";
 import PracticeCard from "./Practice/PracticeCard";
 import { getExams } from "@/hooks/getExams";
 import type { ExamType } from "@/types/types";
+import PracticeFilters from "./Practice/PracticeFilters";
 
 const Practice = () => {
   const [exams, setExams] = useState<ExamType[]>([]);
@@ -37,7 +38,7 @@ const Practice = () => {
   }, []);
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="max-w-4xl mx-auto py-12">
+      <div className="max-w-6xl mx-auto py-12">
         <BreadCrumbs />
         <div className="text-center mb-12">
           <h1 className="text-4xl font-semibold text-foreground mb-4">
@@ -48,7 +49,8 @@ const Practice = () => {
             losowych pytań i trwa 60 minut.
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <PracticeFilters />
+        <div className="grid grid-cols-3 gap-4">
           {isLoading ? (
             <div className="w-full h-full flex items-center justify-center">
               <Loader2 className="w-12 h-12 animate-spin" />
