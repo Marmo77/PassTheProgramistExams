@@ -14,6 +14,8 @@ import PracticeCard from "./Practice/PracticeCard";
 import { getExams } from "@/hooks/getExams";
 import type { ExamType } from "@/types/types";
 import PracticeFilters from "./Practice/PracticeFilters";
+import { Card, CardContent } from "./ui/card";
+import { Skeleton } from "./ui/skeleton";
 
 const Practice = () => {
   const [exams, setExams] = useState<ExamType[]>([]);
@@ -54,9 +56,11 @@ const Practice = () => {
           className={`grid justify-center max-lg:grid-cols-2 max-md:grid-cols-1 grid-cols-3 gap-4`}
         >
           {isLoading ? (
-            <div className="mt-12 col-span-3 mx-auto">
-              <Loader2 className="w-16 h-16 animate-spin" />
-            </div>
+            <>
+              <PracticeSkeletonCard />
+              <PracticeSkeletonCard />
+              <PracticeSkeletonCard />
+            </>
           ) : (
             exams.map((exam) => (
               <PracticeCard key={exam.id} isDone={false} exam={exam} />
@@ -91,5 +95,35 @@ const BreadCrumbs = () => {
     </Breadcrumb>
   );
 };
-
+const PracticeSkeletonCard = () => {
+  return (
+    <Card className="w-full">
+      <CardContent>
+        <div className="flex justify-between">
+          <Skeleton className="w-10 h-6" />
+          <Skeleton className="w-25 h-6" />
+        </div>
+        <div className="mt-2 flex flex-col gap-3">
+          <Skeleton className="w-full h-6" />
+          <Skeleton className="w-3/4 h-12" />
+        </div>
+        <div className="flex flex-col mt-4 gap-2">
+          <Skeleton className="w-20 h-6" />
+          <Skeleton className="w-20 h-6" />
+        </div>
+        <div className="mt-4 flex gap-4">
+          <Skeleton className="w-12 h-6" />
+          <Skeleton className="w-16 h-6" />
+          <Skeleton className="w-12 h-6" />
+        </div>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <Skeleton className="w-full h-8" />
+          <Skeleton className="w-full h-8" />
+          <Skeleton className="w-full h-8" />
+          <Skeleton className="w-full h-8" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 export default Practice;
