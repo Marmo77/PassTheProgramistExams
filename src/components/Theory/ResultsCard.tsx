@@ -12,6 +12,7 @@ import {
   HoverCardContent,
 } from "../ui/hover-card";
 import { toast } from "sonner";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const ResultsCard = ({
   results,
@@ -48,8 +49,8 @@ const ResultsCard = ({
                   Powrót do strony glownej
                 </Button>
               </Link>
-              <HoverCard>
-                <HoverCardTrigger asChild>
+              <Tooltip>
+                <TooltipTrigger asChild>
                   <Button
                     variant={"destructive"}
                     size={"lg"}
@@ -58,21 +59,11 @@ const ResultsCard = ({
                   >
                     <Trash2 className="h-10 w-10 group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-6 duration-500" />
                   </Button>
-                </HoverCardTrigger>
-                <HoverCardContent
-                  side="left"
-                  sideOffset={15}
-                  align="start"
-                  className="w-80 cursor-pointer"
-                >
-                  <div className="space-y-1 flex justify-center gap-2 items-center">
-                    <Info className="h-6 w-6" />
-                    <p className="text-base">
-                      Usuń wynik i rozpocznij kolejny test
-                    </p>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Usuń wynik i rozpocznij kolejny test</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
             <h2 className="text-3xl font-extrabold tracking-tight">Wyniki</h2>
             <p className="text-sm text-muted-foreground">
