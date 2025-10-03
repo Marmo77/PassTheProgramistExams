@@ -26,7 +26,7 @@ import { Skeleton } from "./ui/skeleton";
 import PaginationPractice from "./Practice/Pagination";
 
 export type FilterOptions = {
-  search: string;
+  // search: string;
   subject: string;
   technologies: string;
   sort: string;
@@ -41,7 +41,7 @@ const Practice = () => {
   const [hasFetchedAll, setHasFetchedAll] = useState<boolean>(false);
   const limit = 9;
   const [filters, setFilters] = useState<FilterOptions>({
-    search: "",
+    // search: "",
     subject: "",
     technologies: "",
     sort: "",
@@ -75,15 +75,15 @@ const Practice = () => {
         setIsLoading(false);
       }
     };
+    fetchExams();
+    // const timeoutId = setTimeout(
+    //   () => {
+    //     fetchExams();
+    //   },
+    //   filters.search.length > 0 && filters.search.length < 3 ? 0 : 500
+    // );
 
-    const timeoutId = setTimeout(
-      () => {
-        fetchExams();
-      },
-      filters.search.length > 0 && filters.search.length < 3 ? 0 : 500
-    );
-
-    return () => clearTimeout(timeoutId);
+    // return () => clearTimeout(timeoutId);
   }, [filters]); // Only depend on filters
 
   // Memoize current page exams
@@ -132,7 +132,7 @@ const Practice = () => {
         />
 
         {!isLoading && totalCount > 0 && (
-          <div className="text-sm text-muted-foreground mb-4">
+          <div className="text-sm flex justify-end px-2 text-muted-foreground mb-4">
             Znaleziono {totalCount}{" "}
             {totalCount === 1
               ? "egzamin"

@@ -25,7 +25,7 @@ const PracticeFilters = ({ filters, onFilterChange }: PracticeFiltersProps) => {
         <section className="flex gap-4 flex-wrap lg:flex-nowrap">
           <div className="flex max-lg:flex-col justify-center items-center gap-4 w-full">
             {/* WYSZUKAJ */}
-            <div className="flex-[3] min-w-[300px] max-lg:w-full">
+            {/* <div className="flex-[3] min-w-[300px] max-lg:w-full">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input
@@ -35,7 +35,7 @@ const PracticeFilters = ({ filters, onFilterChange }: PracticeFiltersProps) => {
                   onChange={(e) => onFilterChange("search", e.target.value)}
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* KWALIFIKACJE */}
             <div className="flex-1 min-w-[180px] max-lg:w-full">

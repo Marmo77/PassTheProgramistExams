@@ -40,9 +40,9 @@ export const getFilteredExams = async (
   }
 
   // Search filter (min 3 characters)
-  if (filters.search && filters.search.length >= 3) {
-    query = query.ilike("title", `%${filters.search}%`);
-  }
+  // if (filters.search && filters.search.length >= 3) {
+  //   query = query.ilike("title", `%${filters.search}%`);
+  // }
 
   // Language filter (requires technologies column in database)
   if (filters.technologies && filters.technologies !== "all") {
