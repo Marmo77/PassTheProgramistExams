@@ -24,6 +24,8 @@ const buttonVariants = cva(
         questionMapButtonActive:
           "hover:text-accent-foreground border bg-background shadow-xs hover:bg-accent/50 active:border-blue-500 hover:border-blue-500 hover:text-accent-foreground",
         actionButton: "hover:scale-102 border",
+        ctaButton:
+          "bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
