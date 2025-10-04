@@ -5,11 +5,12 @@ export const AppConstants = {
     avatar: "https://github.com/Marmo77.png",
   },
   Website: {
-    Title: "Zdaj Programiste",
-    link: "zdajprogramiste.pl",
-    github: "https://github.com/Marmo77/zdajprogramiste",
+    Title: "Egzamin Programista",
+    link: "egzaminprogramista.pl",
+    github: "https://github.com/Marmo77/egzaminprogramista",
     version: "1.0",
   },
+
   Navigation: {
     Home: "/",
     Theory: "/theory",

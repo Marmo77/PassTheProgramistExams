@@ -31,11 +31,7 @@ const ResultsCard = ({
     localStorage.removeItem("results_" + questions[0].subject);
     navigate("/theory");
     //Toaster info that result was deleted
-    toast.info("Wynik został usunięty!", {
-      duration: 3000,
-      position: "top-right",
-      richColors: true,
-    });
+    toast.info("Wynik został usunięty!");
   };
   return (
     <section className="mx-auto max-w-7xl py-12 max-xl:px-12 max-md:py-6 max-md:px-6">
