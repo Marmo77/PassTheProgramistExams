@@ -10,7 +10,8 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ErrorBoundary>
       <BrowserRouter>
-        <Toaster /> {/* https://sonner.emilkowal.ski/ */}
+        <Toaster duration={3000} position="top-right" richColors={true} />{" "}
+        {/* https://sonner.emilkowal.ski/ */}
         <App />
       </BrowserRouter>
     </ErrorBoundary>
