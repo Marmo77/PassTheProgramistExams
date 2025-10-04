@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 
 const Support = () => {
   return (
-    <div className="text-center">
+    <div className="max-w-4xl mx-auto text-center px-6">
       <Card className="border border-border shadow-md light:bg-red-50">
         <CardContent className="px-6">
           <div className="flex flex-col items-center gap-2 mb-2">

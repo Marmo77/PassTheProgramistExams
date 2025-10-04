@@ -64,12 +64,12 @@ const Faq = () => {
   ];
 
   return (
-    <div className="w-4xl mx-auto px-6">
+    <div className="w-full max-w-4xl px-6">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        <h2 className="text-3xl font-bold text-primary mb-4">
           Najczęściej zadawane pytania 🤔
         </h2>
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           Masz pytania? Sprawdź czy nie ma już odpowiedzi tutaj!
         </p>
       </div>
@@ -78,12 +78,12 @@ const Faq = () => {
           <AccordionItem
             key={index}
             value={`item-${index}`}
-            className="bg-white rounded-lg border border-gray-200 px-6 shadow-sm hover:shadow-md transition-shadow"
+            className="bg-background rounded-lg border border-border px-6 shadow-sm hover:shadow-md transition-shadow"
           >
-            <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-blue-600 py-6">
+            <AccordionTrigger className="text-left font-semibold text-primary hover:text-blue-600 py-6">
               {faq.question}
             </AccordionTrigger>
-            <AccordionContent className="text-gray-700 pb-6 leading-relaxed">
+            <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
               {faq.answer}
             </AccordionContent>
           </AccordionItem>
@@ -91,13 +91,13 @@ const Faq = () => {
       </Accordion>
       <div className="text-center mt-6">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-6 py-3 bg-blue-50 border border-blue-200 rounded-full">
-          <Lightbulb className="w-5 h-5 text-blue-700" />
-          <span className="text-sm text-blue-800">
+        <div className="inline-flex items-center gap-2 px-6 py-3 bg-blue-50 dark:bg-background dark:border-border border border-blue-200 rounded-full">
+          <Lightbulb className="w-5 h-5 text-blue-700 dark:text-blue-400" />
+          <span className="text-sm text-blue-800 dark:text-blue-400">
             Masz inne pytanie? Napisz na{" "}
             <a
               href="https://github.com/zdajprogramiste/passtheexams/issues"
-              className="hover:underline font-semibold"
+              className="hover:underline dark:text-blue-300 font-semibold"
               target="_blank"
             >
               GitHub Issues
