@@ -17,14 +17,9 @@ import {
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import type { ExamType } from "@/types/types";
+import React from "react";
 
-const PracticeCard = ({
-  isDone,
-  exam,
-}: {
-  isDone: boolean;
-  exam: ExamType;
-}) => {
+const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
   const DoneColors = [
     {
       Done: {
@@ -220,6 +215,6 @@ const PracticeCard = ({
       </CardContent>
     </Card>
   );
-};
+});
 
 export default PracticeCard;
