@@ -90,13 +90,13 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center space-x-6">
           <Link
             to={AppConstants.Navigation.Theory}
-            className="text-primary/75 hover:text-primary transition-colors font-medium"
+            className="text-primary/90 hover:text-primary transition-colors font-medium"
           >
             Teoria
           </Link>
           <Link
             to={AppConstants.Navigation.Practice}
-            className="text-primary/75 hover:text-primary transition-colors font-medium"
+            className="text-primary/90 hover:text-primary transition-colors font-medium"
           >
             Praktyka
           </Link>
