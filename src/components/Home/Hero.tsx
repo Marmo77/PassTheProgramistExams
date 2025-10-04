@@ -22,7 +22,7 @@ const Hero = () => {
           </span>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl font-semibold text-primary leading-tight mb-6">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-primary leading-tight mb-6">
           Zdaj Egzaminy
           <br />
           <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -30,17 +30,17 @@ const Hero = () => {
           </span>
         </h1>
 
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
+        <p className="text-xl max-md:text-base text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed max-sm:px-6">
           Nowoczesna strona internetowa stworzona aby pomóc uczniom w
           przygotowaniu się do egzaminów zawodowych <strong>INF.03</strong> i{" "}
           <strong>INF.04</strong>. Strona zawiera testy teoretyczne oraz arkusze
           praktyczne.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 max-sm:px-6">
           <Button
             onClick={onStartTest}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105 max-md:px-12 max-md:py-5"
           >
             <BookOpen className="w-5 h-5 mr-2" />
             Test Teoretyczny
@@ -48,7 +48,7 @@ const Hero = () => {
           <Button
             onClick={onViewExams}
             variant="outline"
-            className="border-border text-primary hover:border-border px-8 py-3 rounded-lg font-medium transition-all"
+            className="border-border text-primary hover:border-border px-8 py-3 rounded-lg font-medium transition-all max-md:px-12 max-md:py-5"
           >
             <FileText className="w-5 h-5 mr-2" />
             Arkusze Praktyczne
@@ -71,7 +71,8 @@ const HeroProsCards = () => {
         {
           bg: "bg-blue-100",
           text: "text-blue-600",
-          hoverBorder: "hover:border-blue-600",
+          hoverBorder: "hover:border-blue-400",
+          darkBorder: "dark:border-blue-400/70",
         },
       ],
     },
@@ -84,7 +85,8 @@ const HeroProsCards = () => {
         {
           bg: "bg-orange-100",
           text: "text-orange-600",
-          hoverBorder: "hover:border-orange-600",
+          hoverBorder: "hover:border-orange-400",
+          darkBorder: "dark:border-orange-400/70",
         },
       ],
     },
@@ -97,7 +99,8 @@ const HeroProsCards = () => {
         {
           bg: "bg-green-100",
           text: "text-green-600",
-          hoverBorder: "hover:border-green-600",
+          hoverBorder: "hover:border-green-400",
+          darkBorder: "dark:border-green-400/70",
         },
       ],
     },
@@ -112,12 +115,17 @@ const HeroProsCards = () => {
     title: string;
     description: string;
     icon: any;
-    colors: { bg: string; text: string; hoverBorder: string }[];
+    colors: {
+      bg: string;
+      text: string;
+      hoverBorder: string;
+      darkBorder: string;
+    }[];
   }) => {
     const Icon = icon;
     return (
       <Card
-        className={`px-4 py-4 border ${colors[0].hoverBorder} transition-all hover:shadow-lg hover:scale-105 bg-white`}
+        className={`py-4 border ${colors[0].hoverBorder} ${colors[0].darkBorder} transition-all hover:shadow-lg hover:scale-105 bg-background shadow-md`}
       >
         <CardContent className="py-2">
           <div
@@ -132,7 +140,7 @@ const HeroProsCards = () => {
     );
   };
   return (
-    <div className="flex justify-center gap-6 px-12">
+    <div className="flex max-md:flex-col justify-center gap-5 px-12 max-lg:px-6">
       {ProsCards.map((card) => (
         <ProsCard
           title={card.title}
