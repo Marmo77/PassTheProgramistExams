@@ -1,7 +1,7 @@
 import { BookOpen, Coffee, FileText, GraduationCap } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardTitle } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 
 const Hero = () => {
   const onStartTest = () => {

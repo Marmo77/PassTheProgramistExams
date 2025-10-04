@@ -229,7 +229,7 @@ const Question = () => {
                             isCurrent
                               ? "border-blue-500"
                               : answered
-                              ? "border-green-500 bg-green-50 text-green-600"
+                              ? "border-green-500 bg-background text-green-600"
                               : ""
                           }
                         >
