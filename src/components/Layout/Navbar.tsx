@@ -25,9 +25,6 @@ export default function Navbar() {
   useEffect(() => {
     // Check for saved theme preference or default to light
     const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    // const prefersDark = window.matchMedia(
-    //   "(prefers-color-scheme: dark)"
-    // ).matches;
 
     const initialTheme = savedTheme || "light";
     setTheme(initialTheme);
@@ -90,7 +87,7 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center space-x-6">
           <Link
             to={AppConstants.Navigation.Theory}
-            className="text-primary/90 hover:text-primary transition-colors font-medium"
+            className="text-primary/85 hover:text-primary transition-colors font-medium"
           >
             Teoria
           </Link>

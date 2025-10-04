@@ -40,7 +40,8 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 max-sm:px-6">
           <Button
             onClick={onStartTest}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105 max-md:px-12 max-md:py-5"
+            variant="ctaButton"
+            className="px-12 py-5 max-md:px-12 max-md:py-5"
           >
             <BookOpen className="w-5 h-5 mr-2" />
             Test Teoretyczny
