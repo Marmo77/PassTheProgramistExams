@@ -23,12 +23,10 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
   const DoneColors = [
     {
       Done: {
-        bg: "bg-green-50",
         text: "text-green-600",
         border: "border-green-600",
       },
       NotDone: {
-        bg: "bg-red-50",
         text: "text-red-600",
         border: "border-red-600",
       },
@@ -38,22 +36,18 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
   const ActiveLinks = [
     {
       Exams: {
-        bg: "bg-blue-50",
         text: "text-blue-600",
         border: "border-blue-600/35",
       },
       Solutions: {
-        bg: "bg-green-50",
         text: "text-green-600",
         border: "border-green-600/35",
       },
       ZIP: {
-        bg: "bg-red-50",
         text: "text-red-600",
         border: "border-red-600/35",
       },
       Rules: {
-        bg: "bg-yellow-50",
         text: "text-yellow-600",
         border: "border-yellow-600/35",
       },
@@ -63,17 +57,14 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
   const Technologies = [
     {
       JavaScript: {
-        bg: "bg-yellow-50",
         text: "text-yellow-600",
         border: "border-yellow-600/35",
       },
       PHP: {
-        bg: "bg-purple-50",
         text: "text-purple-600",
         border: "border-purple-600/35",
       },
       else: {
-        bg: "bg-blue-50",
         text: "text-blue-600",
         border: "border-blue-600/35",
       },
@@ -91,16 +82,16 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
     <Card className="hover:shadow-lg hover:drop-shadow-lg hover:scale-102 transition-all duration-300">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <Badge className="bg-gray-900 py-1 px-2.5 rounded-xl flex items-center gap-1">
+          <Badge className="bg-gray-900 py-1 px-2.5 rounded-xl flex items-center gap-1 uppercase dark:bg-primary dark:text-primary-foreground">
             {exam.subject}
           </Badge>
           <Badge
             className={
-              DoneColors[0][exam.has_solution ? "Done" : "NotDone"].bg +
-              " " +
               DoneColors[0][exam.has_solution ? "Done" : "NotDone"].text +
               " " +
-              DoneColors[0][exam.has_solution ? "Done" : "NotDone"].border
+              DoneColors[0][exam.has_solution ? "Done" : "NotDone"].border +
+              " " +
+              "bg-background"
             }
           >
             <CheckCircle className="w-4 h-4 mr-1" />
@@ -134,20 +125,14 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
                 variant={"technology"}
                 className={
                   tech == "JavaScript"
-                    ? Technologies[0].JavaScript.bg +
-                      " " +
-                      Technologies[0].JavaScript.text +
+                    ? Technologies[0].JavaScript.text +
                       " " +
                       Technologies[0].JavaScript.border
                     : tech == "PHP"
-                    ? Technologies[0].PHP.bg +
-                      " " +
-                      Technologies[0].PHP.text +
+                    ? Technologies[0].PHP.text +
                       " " +
                       Technologies[0].PHP.border
-                    : Technologies[0].else.bg +
-                      " " +
-                      Technologies[0].else.text +
+                    : Technologies[0].else.text +
                       " " +
                       Technologies[0].else.border
                 }
@@ -162,7 +147,7 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
               <Button
                 size="sm"
                 variant={"actionButton"}
-                className={`w-full ${ActiveLinks[0].Exams.bg} ${ActiveLinks[0].Exams.text} ${ActiveLinks[0].Exams.border}`}
+                className={`w-full ${ActiveLinks[0].Exams.text} ${ActiveLinks[0].Exams.border}`}
               >
                 <NotebookText className="w-4 h-4 mr-1" />
                 Arkusz
@@ -182,7 +167,7 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
                 <Button
                   size="sm"
                   variant="actionButton"
-                  className={`w-full ${ActiveLinks[0].Solutions.bg} ${ActiveLinks[0].Solutions.text} ${ActiveLinks[0].Solutions.border}`}
+                  className={`w-full ${ActiveLinks[0].Solutions.text} ${ActiveLinks[0].Solutions.border}`}
                 >
                   <FileText className="w-4 h-4 mr-1" />
                   Rozwiązanie
@@ -194,7 +179,7 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
               <Button
                 size="sm"
                 variant="actionButton"
-                className={`w-full ${ActiveLinks[0].ZIP.bg} ${ActiveLinks[0].ZIP.text} ${ActiveLinks[0].ZIP.border}`}
+                className={`w-full ${ActiveLinks[0].ZIP.text} ${ActiveLinks[0].ZIP.border}`}
               >
                 <FolderArchive className="w-4 h-4 mr-1" />
                 ZIP
