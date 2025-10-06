@@ -1,11 +1,5 @@
 // src/components/Practice.tsx
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getFilteredExams } from "@/hooks/getExams";
 import type { ExamType } from "@/types/types";
 import PracticeCard from "./Practice/PracticeCard";
@@ -38,7 +32,6 @@ const Practice = () => {
   const [totalCount, setTotalCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [hasFetchedAll, setHasFetchedAll] = useState<boolean>(false);
   const limit = 9;
   const [filters, setFilters] = useState<FilterOptions>({
     // search: "",

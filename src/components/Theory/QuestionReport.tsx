@@ -119,7 +119,7 @@ const QuestionReport = ({
         </SheetHeader>
         <div className="flex flex-col gap-6 px-6">
           {/* Question informations */}
-          <div className="bg-muted/50 rounded-lg px-2 mt-4 space-y-3">
+          <div className="rounded-lg px-2 mt-4 space-y-3">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <BookOpen className="w-4 h-4" />
               <span>
