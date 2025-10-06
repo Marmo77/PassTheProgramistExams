@@ -95,10 +95,14 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
             }
           >
             <CheckCircle className="w-4 h-4 mr-1" />
-            {exam.has_solution ? "Rozwiązania" : "Brak rozwiązań"}
+            <span className="">
+              {exam.has_solution ? "Rozwiązania" : "Brak rozwiązań"}
+            </span>
           </Badge>
         </div>
-        <CardTitle className="text-lg font-semibold">{exam.title}</CardTitle>
+        <CardTitle className="text-lg text-primary font-semibold">
+          {exam.title}
+        </CardTitle>
         {exam.description && (
           <CardDescription className="text-muted-foreground">
             {exam.description}
@@ -118,6 +122,8 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
               {examFile}
             </div>
           </ul>
+        </div>
+        <div className="flex flex-col gap-3">
           {/* Techonologies used */}
           <div className="flex items-center gap-2">
             {exam.technologies?.map((tech) => (
