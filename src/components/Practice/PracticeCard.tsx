@@ -157,7 +157,7 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
               <Button
                 size="sm"
                 variant="actionButton"
-                className={`w-full cursor-not-allowed opacity-45 ${ActiveLinks[0].Solutions.bg} ${ActiveLinks[0].Solutions.text} ${ActiveLinks[0].Solutions.border}`}
+                className={`w-full cursor-not-allowed opacity-45 ${ActiveLinks[0].Solutions.text} ${ActiveLinks[0].Solutions.border}`}
               >
                 <FileText className="w-4 h-4 mr-1" />
                 Rozwiązanie
@@ -189,7 +189,7 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
               <Button
                 size="sm"
                 variant="actionButton"
-                className={`w-full ${ActiveLinks[0].Rules.bg} ${ActiveLinks[0].Rules.text} ${ActiveLinks[0].Rules.border}`}
+                className={`w-full ${ActiveLinks[0].Rules.text} ${ActiveLinks[0].Rules.border}`}
               >
                 <Scale className="w-4 h-4 mr-1" />
                 Zasady Oceniania
