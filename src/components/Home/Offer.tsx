@@ -1,9 +1,13 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { BookOpen } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Offer = () => {
   const date = new Date().getFullYear();
+
+  const navigate = useNavigate();
+
   const stats = [
     {
       label: "INF.03",
@@ -37,7 +41,11 @@ const Offer = () => {
         </div>
         {/* CTA */}
         <div className="flex justify-center my-8">
-          <Button variant={"ctaButton"} className="py-5">
+          <Button
+            variant={"ctaButton"}
+            className="py-5"
+            onClick={() => navigate("/theory")}
+          >
             <BookOpen className="w-6 h-6 mr-1" />
             Rozpocznij test
           </Button>

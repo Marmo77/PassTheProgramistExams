@@ -1,15 +1,16 @@
 import { BookOpen, Coffee, FileText, GraduationCap } from "lucide-react";
-import React from "react";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardTitle } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   const onStartTest = () => {
-    console.log("Start test");
+    navigate("/theory");
   };
 
   const onViewExams = () => {
-    console.log("View exams");
+    navigate("/practice");
   };
 
   return (
