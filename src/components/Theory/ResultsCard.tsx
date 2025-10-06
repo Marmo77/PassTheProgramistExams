@@ -228,9 +228,9 @@ const AnswersCards = ({
 
             // Styling
             const extra = isCorrectOption
-              ? "border-green-500 bg-background text-green-700"
+              ? "border-green-500 bg-background text-green-600"
               : wrongUserPick
-              ? "border-red-500 bg-background text-red-600"
+              ? "border-red-500 bg-background text-red-500"
               : "border-muted";
 
             return (
@@ -238,7 +238,7 @@ const AnswersCards = ({
                 key={opt.key}
                 variant={"questionButton"}
                 size="question"
-                className={`items-start disabled:opacity-80 text-left whitespace-normal break-words  justify-start ${extra}`}
+                className={`items-start text-left disabled:opacity-80 whitespace-normal break-words justify-start ${extra}`}
                 disabled
               >
                 {opt.key}. {opt.text}

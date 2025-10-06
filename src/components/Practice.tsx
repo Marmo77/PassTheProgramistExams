@@ -1,11 +1,5 @@
 // src/components/Practice.tsx
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getFilteredExams } from "@/hooks/getExams";
 import type { ExamType } from "@/types/types";
 import PracticeCard from "./Practice/PracticeCard";

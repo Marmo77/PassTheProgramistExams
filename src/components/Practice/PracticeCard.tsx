@@ -82,15 +82,16 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
     <Card className="hover:shadow-lg hover:drop-shadow-lg hover:scale-102 transition-all duration-300">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <Badge className="bg-primary py-1 px-2.5 rounded-xl flex items-center gap-1">
+          <Badge className="bg-gray-900 py-1 px-2.5 rounded-xl flex items-center gap-1 uppercase dark:bg-primary dark:text-primary-foreground">
             {exam.subject}
           </Badge>
           <Badge
             className={
-              "bg-background " +
               DoneColors[0][exam.has_solution ? "Done" : "NotDone"].text +
               " " +
-              DoneColors[0][exam.has_solution ? "Done" : "NotDone"].border
+              DoneColors[0][exam.has_solution ? "Done" : "NotDone"].border +
+              " " +
+              "bg-background"
             }
           >
             <CheckCircle className="w-4 h-4 mr-1" />
@@ -135,8 +136,6 @@ const PracticeCard = React.memo(({ exam }: { exam: ExamType }) => {
                       Technologies[0].JavaScript.border
                     : tech == "PHP"
                     ? Technologies[0].PHP.text +
-                      " " +
-                      Technologies[0].PHP.text +
                       " " +
                       Technologies[0].PHP.border
                     : Technologies[0].else.text +

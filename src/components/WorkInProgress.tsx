@@ -2,8 +2,15 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ArrowLeft, Clock, Construction } from "lucide-react";
 import { Card, CardContent, CardHeader } from "./ui/card";
+import { useNavigate } from "react-router-dom";
 
 const WorkInProgress = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/");
+  };
+
   return (
     <section className="py-12 px-4">
       <Card className="max-w-3xl mx-auto py-5 px-5">
@@ -50,7 +57,7 @@ const WorkInProgress = () => {
           </div> */}
           {/* CTA powrot */}
           <div className="flex justify-center my-3">
-            <Button variant={"ctaButton"}>
+            <Button variant={"ctaButton"} onClick={handleNavigate}>
               <ArrowLeft className="w-6 h-6 mr-1" />
               Powrót do Strony Głównej
             </Button>
