@@ -108,7 +108,6 @@ const Practice = () => {
   return (
     <section className="flex flex-col max-w-6xl mx-auto min-h-screen max-lg:px-8">
       <div className="py-12">
-        <BreadCrumbs />
         <div className="text-center mb-12">
           <h1 className="text-4xl font-semibold text-foreground mb-4">
             Arkusze egzaminacyjne
@@ -174,30 +173,6 @@ const Practice = () => {
         />
       </div>
     </section>
-  );
-};
-
-const BreadCrumbs = () => {
-  return (
-    <Breadcrumb className="mb-4">
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link
-              to={AppConstants.Navigation.Home}
-              className="flex gap-2 items-center"
-            >
-              <Home className="w-4 h-4" />
-              Home
-            </Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>Praktyka</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
   );
 };
 const PracticeSkeletonCard = () => {
