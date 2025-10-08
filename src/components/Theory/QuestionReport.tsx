@@ -76,17 +76,17 @@ const QuestionReport = ({
 
     // Send report to server
     await ReportBug(report);
-    console.log(report);
 
     setTimeout(() => {
       setIsSubmitting(false);
       setIsReportOpen(false);
-      //reset form
+
       setReport({
         category: "",
         description: "",
-        question_id: "",
+        question_id: question[questionNumber - 1].id,
       });
+      //reset form
       // Show toast
       toast.success("Twoje zgłoszenie zostało wysłane!", {
         duration: 5000,
