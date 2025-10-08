@@ -18,6 +18,9 @@ const QuestionCard = ({
   const handleQuestionSelect = (answer: string) => {
     onSelect(answer);
   };
+  const currentQuestion = question[questionNumber - 1];
+  const hasImage =
+    currentQuestion?.image && currentQuestion.image.trim() !== "";
 
   return (
     <Card className="px-3">
@@ -35,6 +38,16 @@ const QuestionCard = ({
           <h1 className="text-lg font-medium leading-relaxed">
             {questionNumber}. {question[questionNumber - 1]?.question_text}
           </h1>
+        </div>
+        <div>
+          {hasImage && (
+            <img
+              src={currentQuestion?.image}
+              alt={"obraz do zadania " + questionNumber}
+              className="w-full h-auto text-sm italic"
+              loading="lazy"
+            />
+          )}
         </div>
       </CardHeader>
       <CardContent>

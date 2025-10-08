@@ -8,6 +8,7 @@ export type QuestionType = {
   answer_c: string;
   answer_d: string;
   explanation?: string;
+  image?: string;
 };
 
 export type ExamType = {
