@@ -155,7 +155,7 @@ const Question = () => {
                 onSelect={handleSelect} // replace setSelectedAnswer
               />
               {/* Navigation Buttons */}
-              <div className="flex justify-between px-2">
+              <div className="flex justify-between px-2 pb-4">
                 <Button
                   variant={"outline"}
                   onClick={handlePreviousQuestion}

@@ -60,16 +60,27 @@ const QuestionCard = ({
             {questionNumber}. {currentQuestion?.question_text}
           </h1>
         </div>
-        <div>
-          {hasImage && (
+        {hasImage && (
+          <div>
+            {/* WHAT TO DO: */}
+            {/* Status Code 403 Forbidden */}
+            {/* it means that we cannot get from their page images */}
+            {/* we need to get images from our own server, so we need to download it */}
+            {/* https://ee-informatyk.pl/src/img/quizy/ee09/{questionNumber}.jpg */}
+            {/* so we can scrape only questions with images and downloads them to our server and we need to add every question an order numbers so we can pin the images to the questions */}
+            {/* example: question_number: 120, image: 120.jpg */}
             <img
-              src={currentQuestion?.image}
-              alt={"obraz do zadania " + questionNumber}
-              className="w-full h-auto text-sm italic"
+              // src={currentQuestion.image}
+              alt={`obraz ${questionNumber}`}
+              className="w-[600px] h-auto"
               loading="lazy"
+              onError={(e) => {
+                e.currentTarget.src =
+                  "https://github.com/Marmo77/PassTheProgramistExams/blob/master/public/fail_image.png?raw=true";
+              }}
             />
-          )}
-        </div>
+          </div>
+        )}
       </CardHeader>
       <CardContent>
         <div className="flex flex-col px-4 gap-2">
