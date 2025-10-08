@@ -22,6 +22,25 @@ const QuestionCard = ({
   const hasImage =
     currentQuestion?.image && currentQuestion.image.trim() !== "";
 
+  const AnswersButtons = [
+    {
+      id: "A",
+      answer: currentQuestion?.answer_a,
+    },
+    {
+      id: "B",
+      answer: currentQuestion?.answer_b,
+    },
+    {
+      id: "C",
+      answer: currentQuestion?.answer_c,
+    },
+    {
+      id: "D",
+      answer: currentQuestion?.answer_d,
+    },
+  ];
+
   return (
     <Card className="px-3">
       <CardHeader className="">
@@ -54,82 +73,26 @@ const QuestionCard = ({
       </CardHeader>
       <CardContent>
         <div className="flex flex-col px-4 gap-2">
-          <Button
-            variant={"questionButton"}
-            className={`
+          {AnswersButtons.map((item) => (
+            <Button
+              key={item.id}
+              variant={"questionButton"}
+              className={`
               items-start justify-start text-left 
               whitespace-normal break-words
               h-auto min-h-[3rem] 
-              ${selectedAnswer === "A" ? "border-primary" : ""}
+              ${selectedAnswer === item.id ? "border-primary" : ""}
             `}
-            id="A"
-            size="question"
-            onClick={() => handleQuestionSelect("A")}
-          >
-            <span className="block w-full text-left">
-              <span className="font-semibold mr-2">A.</span>
-              <span className="break-words">
-                {question[questionNumber - 1]?.answer_a}
+              id={item.id}
+              size="question"
+              onClick={() => handleQuestionSelect(item.id)}
+            >
+              <span className="block w-full text-left">
+                <span className="font-semibold mr-2">{item.id}.</span>
+                <span className="break-words">{item.answer}</span>
               </span>
-            </span>
-          </Button>
-          <Button
-            variant={"questionButton"}
-            className={`
-              items-start justify-start text-left 
-              whitespace-normal break-words
-              h-auto min-h-[3rem]
-              ${selectedAnswer === "B" ? "border-primary" : ""}
-            `}
-            id="B"
-            size="question"
-            onClick={() => handleQuestionSelect("B")}
-          >
-            <span className="block w-full text-left">
-              <span className="font-semibold mr-2">B.</span>
-              <span className="break-words">
-                {question[questionNumber - 1]?.answer_b}
-              </span>
-            </span>
-          </Button>
-          <Button
-            variant={"questionButton"}
-            className={`
-              items-start justify-start text-left 
-              whitespace-normal break-words
-              h-auto min-h-[3rem]
-              ${selectedAnswer === "C" ? "border-primary" : ""}
-            `}
-            id="C"
-            size="question"
-            onClick={() => handleQuestionSelect("C")}
-          >
-            <span className="block w-full text-left">
-              <span className="font-semibold mr-2">C.</span>
-              <span className="break-words">
-                {question[questionNumber - 1]?.answer_c}
-              </span>
-            </span>
-          </Button>
-          <Button
-            variant={"questionButton"}
-            className={`
-              items-start justify-start text-left 
-              whitespace-normal break-words
-              h-auto min-h-[3rem]
-              ${selectedAnswer === "D" ? "border-primary" : ""}
-            `}
-            id="D"
-            size="question"
-            onClick={() => handleQuestionSelect("D")}
-          >
-            <span className="block w-full text-left">
-              <span className="font-semibold mr-2">D.</span>
-              <span className="break-words">
-                {question[questionNumber - 1]?.answer_d}
-              </span>
-            </span>
-          </Button>
+            </Button>
+          ))}
         </div>
       </CardContent>
     </Card>
