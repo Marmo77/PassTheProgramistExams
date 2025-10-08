@@ -28,15 +28,17 @@ const QuestionCard = ({
         <div className="flex items-center justify-between gap-2">
           <Badge
             className="ml-0 px-2 py-1 w-fit"
-            variant={question[0]?.subject === "inf03" ? "outline" : "default"}
+            variant={
+              currentQuestion?.subject === "inf03" ? "outline" : "default"
+            }
           >
-            {question[0]?.subject ?? ""}
+            {currentQuestion?.subject ?? ""}
           </Badge>
           <QuestionReport question={question} questionNumber={questionNumber} />
         </div>
         <div className="flex py-2">
           <h1 className="text-lg font-medium leading-relaxed">
-            {questionNumber}. {question[questionNumber - 1]?.question_text}
+            {questionNumber}. {currentQuestion?.question_text}
           </h1>
         </div>
         <div>
